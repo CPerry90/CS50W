@@ -70,7 +70,7 @@ def add_entry(request):
                    "content": "It looks like that entry already exsists."
                })
 
-        util.save_entry(new_title, new_content)
+        util.save_entry(new_title, bytes(new_content, 'utf8'))
         return redirect('title', title=new_title)
 
 def random(request):
