@@ -1,0 +1,57 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>{{ listing.title }}</h2>
+    {% if highestBidder %}
+        <p>You are the highest bidder!</p>
+    {% endif %}
+    <img src="{{ listing.imageURL }}" alt="{{ listing.title }}">
+    <p class="card-text">{{ listing.description }}</p>
+    <h6>£{{ listing.price }}</h6>
+    {% if isActive %}
+        <form action="{% url 'addBid' id=listing.id %}" method="POST">
+            {% csrf_token %}
+            {{ bidForm.as_div }}
+            <input type="submit">
+        </form>
+    {% else %}
+        {% if highestBidder %}
+            <h3>Congratulations! You won the item!</h3>
+        {% endif %}
+    {% endif %}
+    {% if isOwner %}
+        {% if isActive %}
+            <a href="{% url 'closeAuction' id=listing.id %}" class="btn btn-primary">Close Auction</a>
+        {% endif %}
+    {% endif %}
+    {% if message %}
+        {{ message }}
+    {% endif %}
+    {% if user.is_authenticated %}
+        {% if isWatching %}
+            <a href="{% url 'removeFromWatchlist' id=listing.id %}">Remove from watchlist</a>
+        {% else %}
+            <a href="{% url 'addToWatchlist' id=listing.id %}">Add to watchlist</a>
+        {% endif %}
+    {% endif %}
+    <div class="row">
+        <div class="col-md-2">
+            <h3>Commetns</h3>
+        </div>
+        {% if user.is_authenticated %}
+            <form action="{% url 'addComment' id=listing.id %}" method="POST">
+                {% csrf_token %}
+                {{ commentForm.as_div }}
+                <input type="submit">
+            </form>
+        {% endif %}
+    </div>
+    {% if comments %}
+        {% for comment in comments %}
+            <p>{{ comment.user }}: {{ comment.comment }}</p>
+        {% endfor %}
+    {% endif %}
+        
+{% endblock %}
+
+
