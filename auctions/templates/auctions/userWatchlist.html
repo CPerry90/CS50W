@@ -1,27 +1,30 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Watched Listings</h2>
+    <div class="row my-3">
+        <div class="col-md-4 mx-2">
+            <h2>Watched Listings</h2>
+        </div>
+    </div>
     {% if watchedListings %}
-        <div class="row">
-            {% for listing in watchedListings %}
-                <div class="col-md-2">
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="{{ listing.imageURL }}" alt="{{ listing.title }}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ listing.title }}</h5>
-                            <p class="card-text">{{ listing.description }}</p>
-                            <h6>£{{ listing.price }}</h6>
-                            <a href="{% url 'viewListing' id=listing.id %}" class="btn btn-primary">View Listing</a>
-                            <a href="{% url 'removeFromWatchlistPage' id=listing.id %}" class="btn btn-primary">Remove</a>
+    <div class="row mx-2">
+        {% for listing in watchedListings %}
+            <div class="col-md-2">
+                <div class="listingcard border border-1 shadow">
+                    <div class="img-container  d-flex align-items-center">
+                        <img class="img-fluidy" src="{{ listing.imageURL }}" alt="{{ listing.title }}">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ listing.title }}</h5>
+                        <div class="text-container my-3">
+                            <p class="card-text ellipsis">{{ listing.description }}</p>
                         </div>
+                        <h6>Current Price: £{{ listing.price }}</h6>
+                        <a href="{% url 'viewListing' id=listing.id %}" class="my-1 btn btn-success">View Listing</a>
                     </div>
                 </div>
-            {% endfor %}
-        </div>
-    {% else %}
-        <h4>Nothing in watchlist.</h4>
+            </div>
+        {% endfor %}
+    </div>
     {% endif %}
 {% endblock %}
-
-

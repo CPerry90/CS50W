@@ -99,6 +99,7 @@ def createListing(request):
                 listing = listingName
             )
             bidToAdd.save()
+            updateBid = bid.objects.get(listing=listingName)
             addListing = listing(
                 title = listingName,
                 description = form.cleaned_data["description"],
@@ -108,6 +109,8 @@ def createListing(request):
                 owner = request.user
             )
             addListing.save()
+            updateBid.listing = str(addListing)
+            updateBid.save()
         else:
             return render(request, "auctions/createListing.html", {
             "message": "Form is invalid",
@@ -124,7 +127,7 @@ def createListing(request):
 def viewListing(request, id):
     viewListing = listing.objects.get(pk=id)
     userIsWatching = request.user in viewListing.watchlist.all()
-    listingComments = comment.objects.filter(listing=viewListing)
+    listingComments = comment.objects.filter(listing=viewListing).order_by('-created_at')
     currentBids = bid.objects.filter(listing=viewListing).order_by('-bid')
     highestBid = currentBids.first()
     if request.user == viewListing.owner:
@@ -233,7 +236,7 @@ def addBid(request, id):
                     "comments": listingComments,
                     "bidForm": bidForm,
                     "isActive": currentListing.active,
-                    "message": "Bid failed!",
+                    "message": "Bid failed! Ammount too low",
                     "highestBidder": highestBidder
                 })
 

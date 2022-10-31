@@ -1,57 +1,111 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>{{ listing.title }}</h2>
-    {% if highestBidder %}
-        <p>You are the highest bidder!</p>
-    {% endif %}
-    <img src="{{ listing.imageURL }}" alt="{{ listing.title }}">
-    <p class="card-text">{{ listing.description }}</p>
-    <h6>£{{ listing.price }}</h6>
-    {% if isActive %}
-        <form action="{% url 'addBid' id=listing.id %}" method="POST">
-            {% csrf_token %}
-            {{ bidForm.as_div }}
-            <input type="submit">
-        </form>
-    {% else %}
-        {% if highestBidder %}
-            <h3>Congratulations! You won the item!</h3>
-        {% endif %}
-    {% endif %}
-    {% if isOwner %}
-        {% if isActive %}
-            <a href="{% url 'closeAuction' id=listing.id %}" class="btn btn-primary">Close Auction</a>
-        {% endif %}
-    {% endif %}
-    {% if message %}
-        {{ message }}
-    {% endif %}
-    {% if user.is_authenticated %}
-        {% if isWatching %}
-            <a href="{% url 'removeFromWatchlist' id=listing.id %}">Remove from watchlist</a>
-        {% else %}
-            <a href="{% url 'addToWatchlist' id=listing.id %}">Add to watchlist</a>
-        {% endif %}
-    {% endif %}
-    <div class="row">
-        <div class="col-md-2">
-            <h3>Commetns</h3>
+    <div class="rounded shadow row mx-5 my-4 py-4">
+        <div class="col-md-1"></div>
+        <div class="listing-img col-md-5">
+            <div class="list-img-container d-flex align-items-center">
+                <img class="listing-img img-fluidy" src="{{ listing.imageURL }}" alt="{{ listing.title }}">
+            </div>
         </div>
-        {% if user.is_authenticated %}
+        <div class="col-md-5">
+            <div class="listing-top">
+                <h2>{{ listing.title }}</h2>
+                {% if isOwner %}
+                <P>Being sold by <strong>You</strong></P>
+                {% if isOwner %}
+                {% if isActive %}
+                    <a href="{% url 'closeAuction' id=listing.id %}" class="btn btn-danger">Close Auction</a>
+                {% endif %}
+            {% endif %}
+                {% else %}
+                <P>Being sold by <strong>{{ listing.owner }}</strong></P>
+                {% endif %}
+                <hr>
+                <div class="content-container">
+                    <p class="card-text">{{ listing.description }}</p>
+                </div>
+            </div>
+            <div class="listing-bottom">
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Current Price: £{{ listing.price }}</h6>
+                        {% if isActive %}
+                            {% if highestBidder %}
+                            <p>You are the current highest bidder!</p>
+                            {% endif %}
+                            <form action="{% url 'addBid' id=listing.id %}" method="POST" class="d-flex align-items-center">
+                                {% csrf_token %}
+                                {{ bidForm }}
+                                <input type="submit" class="btn btn-success mx-2" value="Bid">
+                            </form>
+                            {% if message %}
+                                {% if message == "Bid Success!" %}
+                                    <div class="message-success">
+                                        <P>{{ message }}</P>
+                                    </div>
+                                {% else %}
+                                    <div class="message-failed">
+                                        <P>{{ message }}</P>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        {% else %}
+                            {% if highestBidder %}
+                                <div class="message-success">
+                                    <p>Congratulations! You won the item!</p>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6 d-flex align-items-center">
+                        {% if user.is_authenticated %}
+                            {% if isWatching %}
+                                <a href="{% url 'removeFromWatchlist' id=listing.id %}" class="btn btn-danger">Remove from Watchlist</a>
+                            {% else %}
+                                <a href="{% url 'addToWatchlist' id=listing.id %}" class="btn btn-success">Add to Watchlist</a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+    <div class="row mx-5">
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
+            <h3>Commetns</h3>
+            <hr>
+            {% if comments %}
+                {% for comment in comments %}
+                            <div class="comment">
+                                <p class="comment-text">{{ comment.comment }} - <strong>{{ comment.user }}</strong></p>
+                                <p class="comment-date"> - {{ comment.created_at }}</p>
+                                <hr>
+                            </div>
+                {% endfor %}
+            {% else %}
+            <div class="comment">
+                <p>Be the first to leave a comment!</p>
+                <hr>
+            </div>
+            {% endif %}
+        </div>
+        <div class="col-md-5 text-right">
+            {% if user.is_authenticated %}
             <form action="{% url 'addComment' id=listing.id %}" method="POST">
                 {% csrf_token %}
                 {{ commentForm.as_div }}
-                <input type="submit">
+                <input type="submit" class="btn btn-success">
             </form>
-        {% endif %}
+            {% endif %}
+        </div>
     </div>
-    {% if comments %}
-        {% for comment in comments %}
-            <p>{{ comment.user }}: {{ comment.comment }}</p>
-        {% endfor %}
-    {% endif %}
         
 {% endblock %}
+
+
 
 

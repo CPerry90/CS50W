@@ -1,36 +1,45 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Active Listings</h2>
-    <form action="{% url 'categorySelect' %}" method="POST">
-        {% csrf_token %}
-        <select name="category" id="category">
-            <option value="all">Category</option>
-            {% for category in categories %}
-                {% if category|slugify == selectedCategory|slugify %}
-                    <option value="{{ category }}" selected="selected">{{ category }}</option>
-                {% else %}
-                    <option value="{{ category }}">{{ category }}</option>
-                {% endif %}
-            {% endfor %}
-        </select>
-        <input type="submit" value="Go!">
-    </form>
-    <div class="row">
+    <div class="my-3 mx-2">
+        <div class="col-md-2 mx-2">
+            <h2>Active Listings</h2>
+        </div>
+        <div class="col-md-2 mx-2 d-flex flex-wrap align-items-center">
+            <form action="{% url 'categorySelect' %}" method="POST">
+                {% csrf_token %}
+                <select name="category" id="category">
+                    <option value="all">Category</option>
+                    {% for category in categories %}
+                        {% if category|slugify == selectedCategory|slugify %}
+                            <option value="{{ category }}" selected="selected">{{ category }}</option>
+                        {% else %}
+                            <option value="{{ category }}">{{ category }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Go!">
+            </form>
+        </div>
+    </div>
+    <div class="row mx-2">
         {% for listing in currentListings %}
             <div class="col-md-2">
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="{{ listing.imageURL }}" alt="{{ listing.title }}">
+                <div class="listingcard border border-1 shadow">
+                    <div class="img-container  d-flex align-items-center">
+                        <img class="img-fluidy" src="{{ listing.imageURL }}" alt="{{ listing.title }}">
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">{{ listing.title }}</h5>
-                        <p class="card-text">{{ listing.description }}</p>
-                        <h6>£{{ listing.price }}</h6>
-                        <a href="{% url 'viewListing' id=listing.id %}" class="btn btn-primary">View Listing</a>
+                        <div class="text-container my-3">
+                            <p class="card-text ellipsis">{{ listing.description }}</p>
+                        </div>
+                        <h6>Current Price: £{{ listing.price }}</h6>
+                        <a href="{% url 'viewListing' id=listing.id %}" class="my-1 btn btn-success">View Listing</a>
                     </div>
                 </div>
             </div>
         {% endfor %}
     </div>
 {% endblock %}
-
 

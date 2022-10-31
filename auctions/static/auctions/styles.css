@@ -1,3 +1,80 @@
 body {
     padding: 10px;
 }
+
+.img-fluidy {
+    width: 100%;
+    height: auto;
+    border-radius: 1.0rem;
+}
+
+.listingcard {
+    overflow: hidden;
+    border-radius: 0.5rem;
+}
+
+.img-container {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    overflow: hidden;
+    height: 230px;
+    border-radius: 0.5rem;
+}
+
+.ellipsis {
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.text-container {
+    height: 100px;
+}
+
+#category {
+    height: 30px;
+}
+
+.list-img-container {
+    overflow: hidden;
+    height: 60vh;
+    border-radius: 1rem;
+}
+
+.listing-bottom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.content-container {
+    height: auto;
+    max-height: 36vh;
+    overflow-y: auto;
+}
+
+.comment-date {
+    font-size: 8pt;
+    margin: 0;
+}
+
+.comment-text {
+    margin: 0;
+}
+
+.message-failed {
+    border-radius: 0.75rem;
+    background-color: orangered;
+    text-align: center;
+}
+
+.message-success {
+    border-radius: 0.75rem;
+    background-color: green;
+    text-align: center;
+    color: white;
+}
