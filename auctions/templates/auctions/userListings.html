@@ -3,12 +3,12 @@
 {% block body %}
     <div class="row my-3">
         <div class="col-md-4 mx-2">
-            <h2>Watched Listings</h2>
+            <h2>My Listings</h2>
         </div>
     </div>
-    {% if watchedListings %}
+    {% if myListings %}
     <div class="row mx-2">
-        {% for listing in watchedListings %}
+        {% for listing in myListings %}
             <div class="col-md-2 py-3">
                 <div class="listingcard white border border-1 shadow">
                     <div class="img-container d-flex align-items-center">
@@ -28,7 +28,7 @@
     </div>
     {% else %}
     <div class="row mx-2">
-        <p>You have no watched listings.</p>
+        <p>You have no listings.</p>
     </div>
     {% endif %}
 {% endblock %}

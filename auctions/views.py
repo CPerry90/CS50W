@@ -5,6 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from .forms import newListingForm, commentForm, bidForm
+import re
 
 from .models import User, listing, category, comment, bid
 
@@ -185,6 +186,26 @@ def viewWatchlist(request):
     })
 
 @login_required(login_url='login')
+def myListings(request):
+    user = request.user
+    myListings = listing.objects.filter(owner=user)
+    return render(request, "auctions/userListings.html", {
+        "myListings": myListings
+    })
+
+@login_required(login_url='login')
+def viewBidding(request):
+    user = request.user
+    myBidding = bid.objects.filter(user=user).values_list('listing', flat=True)
+    bidListings = []
+    for l in myBidding:
+        bidListings.append(listing.objects.get(pk=re.sub('\D', '', l)))
+    bidListings = list(dict.fromkeys(bidListings))
+    return render(request, "auctions/userBidding.html", {
+        "bidListings": bidListings
+    })
+
+@login_required(login_url='login')
 def addComment(request, id):
     user = request.user
     commentListing = listing.objects.get(pk=id)
@@ -234,7 +255,8 @@ def addBid(request, id):
                     "bidForm": bidForm,
                     "isActive": currentListing.active,
                     "message": "Bid Success!",
-                    "highestBidder": highestBidder
+                    "highestBidder": highestBidder,
+                    "isOwner": False
                 })
             else:
                 return render(request, "auctions/listing.html", {
@@ -245,7 +267,8 @@ def addBid(request, id):
                     "bidForm": bidForm,
                     "isActive": currentListing.active,
                     "message": "Bid failed! Ammount too low",
-                    "highestBidder": highestBidder
+                    "highestBidder": highestBidder,
+                    "isOwner": False
                 })
 
 @login_required(login_url='login')
@@ -271,7 +294,8 @@ def closeAuction(request, id):
             "comments": listingComments,
             "bidForm": bidForm,
             "message": "You have closed the Auction!",
-            "highestBidder": highestBidder
+            "highestBidder": highestBidder,
+            "isOwner": True
         })        
     else:
         return render(request, "auctions/listing.html", {
@@ -281,7 +305,8 @@ def closeAuction(request, id):
             "comments": listingComments,
             "bidForm": bidForm,
             "message": "Only the owner can close the auction.",
-            "highestBidder": highestBidder
+            "highestBidder": highestBidder,
+            "isOwner": False
         })
 
 

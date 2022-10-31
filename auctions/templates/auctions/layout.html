@@ -8,37 +8,49 @@
         <link href="{% static 'auctions/styles.css' %}" rel="stylesheet">
     </head>
     <body>
-        <h1>Auctions</h1>
-        <div>
-            {% if user.is_authenticated %}
-                Signed in as <strong>{{ user.username }}</strong>.
-            {% else %}
-                Not signed in.
-            {% endif %}
+        <div class="row">
+            <div class="col-md-12 mx-3">
+                <h1>Auctions</h1>
+                <div>
+                    {% if user.is_authenticated %}
+                        Signed in as <strong>{{ user.username }}</strong>.
+                    {% endif %}
+                </div>
+            </div>
         </div>
-        <ul class="nav">
-            <li class="nav-item px-1">
-                <a href="{% url 'index' %}" class="my-1 btn btn-success">Active Listings</a>
-            </li>
-            {% if user.is_authenticated %}
-            <li class="nav-item px-1">
-                <a href="{% url 'createListing' %}" class="my-1 btn btn-success">Create Listings</a>
-            </li>
-            <li class="nav-item px-1">
-                <a href="{% url 'viewWatchlist' %}" class="my-1 btn btn-success">Watchlist</a>
-            </li>
-            <li class="nav-item px-1">
-                <a href="{% url 'logout' %}" class="my-1 btn btn-danger">Log Out</a>
-            </li>
-            {% else %}
-                <li class="nav-item px-1">
-                    <a href="{% url 'login' %}" class="my-1 btn btn-success">Log In</a>
-                </li>
-                <li class="nav-item px-1">
-                    <a href="{% url 'register' %}" class="my-1 btn btn-success">Register</a>
-                </li>
-            {% endif %}
-        </ul>
+        <div class="row">
+            <div class="col-md-12 mx-3">
+                <ul class="nav">
+                    <li class="nav-item px-1">
+                        <a href="{% url 'index' %}" class="my-1 btn btn-success">Active Listings</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item px-1">
+                        <a href="{% url 'viewWatchlist' %}" class="my-1 btn btn-success">Watchlist</a>
+                    </li>
+                    <li class="nav-item px-1">
+                        <a href="{% url 'viewBidding' %}" class="my-1 btn btn-success">My Bidding</a>
+                    </li>
+                    <li class="nav-item px-1">
+                        <a href="{% url 'createListing' %}" class="my-1 btn btn-success">Create Listings</a>
+                    </li>
+                    <li class="nav-item px-1">
+                        <a href="{% url 'myListings' %}" class="my-1 btn btn-success">My Selling</a>
+                    </li>
+                    <li class="nav-item px-1">
+                        <a href="{% url 'logout' %}" class="my-1 btn btn-danger">Log Out</a>
+                    </li>
+                    {% else %}
+                        <li class="nav-item px-1">
+                            <a href="{% url 'login' %}" class="my-1 btn btn-success">Log In</a>
+                        </li>
+                        <li class="nav-item px-1">
+                            <a href="{% url 'register' %}" class="my-1 btn btn-success">Register</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
         <hr>
         {% block body %}
         {% endblock %}

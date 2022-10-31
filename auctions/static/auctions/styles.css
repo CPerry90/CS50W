@@ -1,5 +1,6 @@
 body {
     padding: 10px;
+    background-color: whitesmoke;
 }
 
 .img-fluidy {
@@ -53,7 +54,7 @@ body {
 
 .content-container {
     height: auto;
-    max-height: 36vh;
+    max-height: 30vh;
     overflow-y: auto;
 }
 
@@ -78,3 +79,16 @@ body {
     text-align: center;
     color: white;
 }
+
+.login-row {
+    height: 50vh;
+}
+
+.login-content {
+    height: fit-content;
+}
+
+.white {
+    background-color: white;
+}
+

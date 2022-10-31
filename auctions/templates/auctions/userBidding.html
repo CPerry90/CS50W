@@ -1,0 +1,36 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <div class="row my-3">
+        <div class="col-md-4 mx-2">
+            <h2>Items you have bid on</h2>
+        </div>
+    </div>
+    {% if bidListings %}
+    <div class="row mx-2">
+        {% for listing in bidListings %}
+            {% if user != listing.owner %}
+                <div class="col-md-2 py-3">
+                    <div class="listingcard white border border-1 shadow">
+                        <div class="img-container d-flex align-items-center">
+                            <img class="img-fluidy" src="{{ listing.imageURL }}" alt="{{ listing.title }}">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ listing.title }}</h5>
+                            <div class="text-container my-3">
+                                <p class="card-text ellipsis">{{ listing.description }}</p>
+                            </div>
+                            <h6>Current Price: £{{ listing.price }}</h6>
+                            <a href="{% url 'viewListing' id=listing.id %}" class="my-1 btn btn-success">View Listing</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="row mx-2">
+        <p>You have not bid on any items.</p>
+    </div>
+    {% endif %}
+{% endblock %}

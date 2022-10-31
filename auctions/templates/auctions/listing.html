@@ -1,7 +1,7 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <div class="rounded shadow row mx-5 my-4 py-4">
+    <div class="rounded shadow border white row mx-5 my-4 py-4">
         <div class="col-md-1"></div>
         <div class="listing-img col-md-5">
             <div class="list-img-container d-flex align-items-center">
@@ -12,14 +12,14 @@
             <div class="listing-top">
                 <h2>{{ listing.title }}</h2>
                 {% if isOwner %}
-                <P>Being sold by <strong>You</strong></P>
-                {% if isOwner %}
-                {% if isActive %}
-                    <a href="{% url 'closeAuction' id=listing.id %}" class="btn btn-danger">Close Auction</a>
-                {% endif %}
-            {% endif %}
+                    <P>Being sold by <strong>You</strong></P>
+                    {% if isOwner %}
+                        {% if isActive %}
+                            <a href="{% url 'closeAuction' id=listing.id %}" class="btn btn-danger">Close Auction</a>
+                        {% endif %}
+                    {% endif %}
                 {% else %}
-                <P>Being sold by <strong>{{ listing.owner }}</strong></P>
+                    <P>Being sold by <strong>{{ listing.owner }}</strong></P>
                 {% endif %}
                 <hr>
                 <div class="content-container">
@@ -31,42 +31,62 @@
                 <div class="row">
                     <div class="col-md-6">
                         <h6>Current Price: £{{ listing.price }}</h6>
-                        {% if isActive %}
-                            {% if highestBidder %}
-                            <p>You are the current highest bidder!</p>
-                            {% endif %}
-                            {% if user.is_authenticated %}
-                            <form action="{% url 'addBid' id=listing.id %}" method="POST" class="d-flex align-items-center">
-                                {% csrf_token %}
-                                {{ bidForm }}
-                                <input type="submit" class="btn btn-success mx-2" value="Bid">
-                            </form>
-                            {% endif %}
-                            {% if message %}
-                                {% if message == "Bid Success!" %}
-                                    <div class="message-success">
-                                        <P>{{ message }}</P>
-                                    </div>
+                            {% if isActive %}
+                                {% if highestBidder and isOwner == False %}
+                                    <p>You are the current highest bidder!</p>
+                                {% endif %}
+                                {% if isOwner == False %}
+                                    {% if user.is_authenticated %}
+                                        <form action="{% url 'addBid' id=listing.id %}" method="POST" class="d-flex align-items-center">
+                                            {% csrf_token %}
+                                            {{ bidForm }}
+                                            <input type="submit" class="btn btn-success mx-2" value="Bid">
+                                        </form>
+                                    {% endif %}
+                                {% endif %}
+                                {% if message %}
+                                    {% if message == "Bid Success!" %}
+                                        <div class="message-success">
+                                            <P>{{ message }}</P>
+                                        </div>
+                                    {% else %}
+                                        <div class="message-failed">
+                                            <P>{{ message }}</P>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            {% else %}
+                                {% if isOwner %}
+                                    {% if highestBidder %}
+                                        <div class="message-success">
+                                            <p>Your item has not sold.</p>
+                                        </div>
+                                    {% else %}
+                                        <div class="message-success">
+                                            <p>Congratulations, your item has sold!</p>
+                                        </div>
+                                    {% endif %}
                                 {% else %}
-                                    <div class="message-failed">
-                                        <P>{{ message }}</P>
-                                    </div>
+                                    {% if highestBidder %}
+                                        <div class="message-success">
+                                            <p>Congratulations, You won the item!</p>
+                                        </div>
+                                    {% else %}
+                                        <div class="message-success">
+                                            <p>This item has sold.</p>
+                                        </div>
+                                    {% endif %}
                                 {% endif %}
                             {% endif %}
-                        {% else %}
-                            {% if highestBidder %}
-                                <div class="message-success">
-                                    <p>Congratulations! You won the item!</p>
-                                </div>
-                            {% endif %}
-                        {% endif %}
                     </div>
                     <div class="col-md-6 d-flex align-items-center">
-                        {% if user.is_authenticated %}
-                            {% if isWatching %}
-                                <a href="{% url 'removeFromWatchlist' id=listing.id %}" class="btn btn-danger">Remove from Watchlist</a>
-                            {% else %}
-                                <a href="{% url 'addToWatchlist' id=listing.id %}" class="btn btn-success">Add to Watchlist</a>
+                        {% if isOwner == False %}
+                            {% if user.is_authenticated %}
+                                {% if isWatching %}
+                                    <a href="{% url 'removeFromWatchlist' id=listing.id %}" class="btn btn-danger">Remove from Watchlist</a>
+                                {% else %}
+                                    <a href="{% url 'addToWatchlist' id=listing.id %}" class="btn btn-success">Add to Watchlist</a>
+                                {% endif %}
                             {% endif %}
                         {% endif %}
                     </div>
@@ -77,8 +97,8 @@
     </div>
     <div class="row mx-5">
         <div class="col-md-1"></div>
-        <div class="col-md-5">
-            <h3>Commetns</h3>
+        <div class="col-md-5 border rounded shadow white">
+            <h3 class="my-3">Commetns</h3>
             <hr>
             {% if comments %}
                 {% for comment in comments %}
