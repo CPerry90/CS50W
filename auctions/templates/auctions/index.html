@@ -4,11 +4,10 @@
     <h2>Active Listings</h2>
     <form action="{% url 'categorySelect' %}" method="POST">
         {% csrf_token %}
-        <p>{{ selectedCategory }}</p>
         <select name="category" id="category">
             <option value="all">Category</option>
             {% for category in categories %}
-                {% if category == selectedCategory %}
+                {% if category|slugify == selectedCategory|slugify %}
                     <option value="{{ category }}" selected="selected">{{ category }}</option>
                 {% else %}
                     <option value="{{ category }}">{{ category }}</option>
