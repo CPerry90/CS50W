@@ -35,11 +35,13 @@
                             {% if highestBidder %}
                             <p>You are the current highest bidder!</p>
                             {% endif %}
+                            {% if user.is_authenticated %}
                             <form action="{% url 'addBid' id=listing.id %}" method="POST" class="d-flex align-items-center">
                                 {% csrf_token %}
                                 {{ bidForm }}
                                 <input type="submit" class="btn btn-success mx-2" value="Bid">
                             </form>
+                            {% endif %}
                             {% if message %}
                                 {% if message == "Bid Success!" %}
                                     <div class="message-success">

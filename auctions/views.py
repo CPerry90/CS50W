@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
@@ -56,7 +57,7 @@ def login_view(request):
     else:
         return render(request, "auctions/login.html")
 
-
+@login_required(login_url='login')
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
@@ -88,6 +89,7 @@ def register(request):
     else:
         return render(request, "auctions/register.html")
 
+@login_required(login_url='login')
 def createListing(request):
     if request.method == "POST":
         form = newListingForm(request.POST)
@@ -150,18 +152,21 @@ def viewListing(request, id):
         "highestBidder": highestBidder
     })
 
+@login_required(login_url='login')
 def addToWatchlist(request, id):
     user = request.user
     thisListing = listing.objects.get(pk=id)
     thisListing.watchlist.add(user)
     return HttpResponseRedirect(reverse("viewListing", args=(id,)))
 
+@login_required(login_url='login')
 def removeFromWatchlist(request, id):
     user = request.user
     thisListing = listing.objects.get(pk=id)
     thisListing.watchlist.remove(user)
     return HttpResponseRedirect(reverse("viewListing", args=(id,)))
 
+@login_required(login_url='login')
 def removeFromWatchlistPage(request, id):
     user = request.user
     thisListing = listing.objects.get(pk=id)
@@ -171,6 +176,7 @@ def removeFromWatchlistPage(request, id):
         "watchedListings": watchedListings
     })
 
+@login_required(login_url='login')
 def viewWatchlist(request):
     user = request.user
     watchedListings = user.watchingUsers.all()
@@ -178,6 +184,7 @@ def viewWatchlist(request):
         "watchedListings": watchedListings
     })
 
+@login_required(login_url='login')
 def addComment(request, id):
     user = request.user
     commentListing = listing.objects.get(pk=id)
@@ -192,6 +199,7 @@ def addComment(request, id):
     addComment.save()
     return HttpResponseRedirect(reverse("viewListing", args=(id,)))
 
+@login_required(login_url='login')
 def addBid(request, id):
     user = request.user
     currentListing = listing.objects.get(pk=id)
@@ -240,6 +248,7 @@ def addBid(request, id):
                     "highestBidder": highestBidder
                 })
 
+@login_required(login_url='login')
 def closeAuction(request, id):
     user = request.user
     currentListing = listing.objects.get(pk=id)
