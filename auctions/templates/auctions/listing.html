@@ -107,7 +107,7 @@
             {% if comments %}
                 {% for comment in comments %}
                             <div class="comment">
-                                <p class="comment-text">{{ comment.comment }} - <strong>{{ comment.user }}</strong></p>
+                                <p class="comment-text">{{ comment.comment }} - <strong>{{ comment.user }}</strong>{% if comment.user == listing.owner %} <em>(Seller)</em>{% endif %}</p>
                                 <p class="comment-date"> - {{ comment.created_at }}</p>
                                 <hr>
                             </div>

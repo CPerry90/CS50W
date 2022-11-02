@@ -1,15 +1,18 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <div class="my-3 mx-2">
+    <div class="row my-3 mx-2">
         <div class="col-md-2 mx-2">
             <h2>Active Listings</h2>
         </div>
+    </div>
+    <div class="row my-3 mx-2">
         <div class="col-md-2 mx-2 d-flex flex-wrap align-items-center">
+            <div><h5>Select a Category</h5></div>
             <form action="{% url 'categorySelect' %}" method="POST">
                 {% csrf_token %}
                 <select name="category" id="category">
-                    <option value="all">Category</option>
+                    <option value="all">All Listings</option>
                     {% for category in categories %}
                         {% if category|slugify == selectedCategory|slugify %}
                             <option value="{{ category }}" selected="selected">{{ category }}</option>
@@ -46,4 +49,3 @@
         {% endfor %}
     </div>
 {% endblock %}
-
