@@ -13,16 +13,18 @@
 <hr>
 <div class="row">
     <div class="col-md-4"></div>
-        <div class="text-center border rounded shadow white col-md-4 p-4">
-            {% if message %}
-                {{ message }}
-            {% endif %}
+        <div class="border rounded shadow white col-md-4 p-4">
             <div class="create-container">
-            <form action="{% url 'createListing' %}" method="POST">
-                {% csrf_token %}
-                {{ form.as_div }}
-                <input class="btn btn-success" type="submit" value="Create">
-            </form>
+                <div class="create-alert">
+                    {% if message %}
+                        {{ message }}
+                    {% endif %}
+                </div>
+                <form action="{% url 'createListing' %}" method="POST">
+                    {% csrf_token %}
+                    {{ form.as_div }}
+                    <input class="btn btn-success" type="submit" value="Create">
+                </form>
             </div>
         </div>
     <div class="col-md-4"></div>

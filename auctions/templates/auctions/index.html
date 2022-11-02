@@ -18,7 +18,7 @@
                         {% endif %}
                     {% endfor %}
                 </select>
-                <input type="submit" value="Go!">
+                <input class="btn btn-success" type="submit" value="Go!">
             </form>
         </div>
     </div>
@@ -27,7 +27,11 @@
             <div class="col-md-2 py-3">
                 <div class="listingcard white border shadow">
                     <div class="img-container  d-flex align-items-center">
-                        <img class="img-fluidy" src="{{ listing.imageURL }}" alt="{{ listing.title }}">
+                        {% if listing.imageURL %}
+                            <img class="img-fluidy" src="{{ listing.imageURL }}" alt="{{ listing.title }}">
+                        {% else %}
+                            <img class="img-fluidy" src="https://media.istockphoto.com/vectors/thumbnail-image-vector-graphic-vector-id1147544807?k=20&m=1147544807&s=612x612&w=0&h=pBhz1dkwsCMq37Udtp9sfxbjaMl27JUapoyYpQm0anc=" alt="{{ listing.title }}">
+                        {% endif %}
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">{{ listing.title }}</h5>

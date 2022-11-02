@@ -5,7 +5,11 @@
         <div class="col-md-1"></div>
         <div class="listing-img col-md-5">
             <div class="list-img-container d-flex align-items-center">
-                <img class="listing-img img-fluidy" src="{{ listing.imageURL }}" alt="{{ listing.title }}">
+                {% if listing.imageURL %}
+                <img class="img-fluidy" src="{{ listing.imageURL }}" alt="{{ listing.title }}">
+                {% else %}
+                <img class="img-fluidy" src="https://media.istockphoto.com/vectors/thumbnail-image-vector-graphic-vector-id1147544807?k=20&m=1147544807&s=612x612&w=0&h=pBhz1dkwsCMq37Udtp9sfxbjaMl27JUapoyYpQm0anc=" alt="{{ listing.title }}">
+                {% endif %}
             </div>
         </div>
         <div class="col-md-5">
@@ -58,7 +62,7 @@
                             {% else %}
                                 {% if isOwner %}
                                     {% if highestBidder %}
-                                        <div class="message-success">
+                                        <div class="message-failed">
                                             <p>Your item has not sold.</p>
                                         </div>
                                     {% else %}
@@ -72,8 +76,8 @@
                                             <p>Congratulations, You won the item!</p>
                                         </div>
                                     {% else %}
-                                        <div class="message-success">
-                                            <p>This item has sold.</p>
+                                        <div class="message-failed">
+                                            <p>You did not win this item.</p>
                                         </div>
                                     {% endif %}
                                 {% endif %}

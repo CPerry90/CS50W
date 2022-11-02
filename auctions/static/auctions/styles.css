@@ -92,3 +92,14 @@ body {
     background-color: white;
 }
 
+.create-container {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.create-alert {
+    text-align: center;
+    border-radius: 00.5rem;
+    background-color: orange;
+}

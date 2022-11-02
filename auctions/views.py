@@ -95,20 +95,43 @@ def createListing(request):
     if request.method == "POST":
         form = newListingForm(request.POST)
         if form.is_valid():
+            categories = category.objects.all()
             listingName = form.cleaned_data["title"]
+            catSelect = form.cleaned_data["category"]
+            catNew = form.cleaned_data["newCategory"]
+            if category.objects.filter(categoryType=catSelect).exists():
+                categorySave = catSelect
+            elif str(catNew) != "":
+                if category.objects.filter(categoryType=catNew).exists():
+                    return render(request, "auctions/createListing.html", {
+                        "message": "That Category already exists.",
+                        "form": newListingForm
+                    })
+                else:
+                    catToSave = category(
+                        categoryType = catNew
+                    )
+                    categorySave = catToSave
+                    catToSave.save()
+            else:
+                return render(request, "auctions/createListing.html", {
+                    "message": "Please select or add a new Category.",
+                    "form": newListingForm
+                })
             bidToAdd = bid(
                 user = request.user,
                 bid = form.cleaned_data["price"],
                 listing = listingName
             )
             bidToAdd.save()
+
             updateBid = bid.objects.get(listing=listingName)
             addListing = listing(
                 title = listingName,
                 description = form.cleaned_data["description"],
                 imageURL = form.cleaned_data["url"],
                 price = bidToAdd,
-                category = form.cleaned_data["category"],
+                category = categorySave,
                 owner = request.user
             )
             addListing.save()
