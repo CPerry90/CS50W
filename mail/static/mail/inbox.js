@@ -72,7 +72,6 @@ function load_mailbox(mailbox) {
         });
         document.querySelector('#emails-view').append(emailView);
       });
-      // ... do something else with emails ...
   });
 }
 
@@ -98,7 +97,7 @@ function view_email(id) {
       </div>
       `;
 
-      //If did not sent the email
+      //If did not send the email
       if (JSON.parse(document.getElementById('user_email').textContent) != email.sender){
         //Reply Button
         const replyBtn = document.createElement('button');
@@ -112,7 +111,6 @@ function view_email(id) {
           email.subject.startsWith("Re:") ? document.querySelector('#compose-subject').value = email.subject : document.querySelector('#compose-subject').value = "Re: " + email.subject;
           document.querySelector('#compose-body').value = "\n\n    On: " + email.timestamp + ", " + email.sender + " wrote: \n\n         "  + email.body; 
         });
-        //div.append(replyBtn);
         document.querySelector('#email-container').append(replyBtn)
 
         //Archive Button
@@ -131,6 +129,7 @@ function view_email(id) {
         });
         document.querySelector('#email-container').append(archiveBtn)
       }
+      
   });
   fetch(`/emails/${id}`, {
     method: 'PUT',
