@@ -1,0 +1,22 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+{{ request.user.id|json_script:"user_id" }}
+<div id="compose-view">
+    <h3>New Email</h3>
+    <form id="compose-post">
+        <textarea required class="form-control" id="post-body" placeholder="Body"></textarea>
+        <hr>
+        <input type="submit" value="Send" class="btn btn-primary"/>
+    </form>
+</div>
+<div id="all-view">
+</div>
+<div id="profile-view">
+</div>
+
+{% endblock %}
+{% block script %}
+    <script src="{% static 'network/network.js' %}"></script>
+{% endblock %}
