@@ -3,17 +3,24 @@
 
 {% block body %}
 {{ request.user.id|json_script:"user_id" }}
+{{ request.user.username|json_script:"user_username" }}
 <div id="compose-view">
+    {% if user.is_authenticated %}
     <h3>New Email</h3>
     <form id="compose-post">
         <textarea required class="form-control" id="post-body" placeholder="Body"></textarea>
         <hr>
         <input type="submit" value="Send" class="btn btn-primary"/>
     </form>
+    {% endif %}
 </div>
-<div id="all-view">
-</div>
-<div id="profile-view">
+<div id="profile-container"></div>
+<div id="all-view"></div>
+{% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+<div id="following-view">
 </div>
 
 {% endblock %}

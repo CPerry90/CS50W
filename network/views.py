@@ -3,11 +3,12 @@ from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.core.paginator import Paginator
 from django.urls import reverse
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from django.core import serializers
+
 
 from .models import User, Post
 
@@ -92,26 +93,113 @@ def new_post(request):
     return JsonResponse({"message": "Post sent successfully"}, status=201)
 
 
-def posts(request, user):
-    if user == "home":
+def posts(request, view, page):
+    if request.user.is_authenticated:
+        loggedIn = True
+    else:
+        loggedIn = False
+    if view == "home":
         posts = Post.objects.all()
-        posts = posts.order_by("-timestamp").all()
-    
-    return JsonResponse([post.serialize() for post in posts], safe=False)
+    elif view == "following":
+        user = User.objects.get(username=request.user)
+        userFollowing = user.following.all()
+        posts = Post.objects.filter(user__in=set(userFollowing))
+    else:
+        posts = Post.objects.filter(user=view)
+
+    posts = posts.order_by("-timestamp").all()
+    paginator = Paginator(posts, 10)
+    page_obj = paginator.get_page(page)
+    num_pages = paginator.num_pages
+    return JsonResponse({ 
+        "loggedIn": loggedIn, 
+        "view": view, 
+        "num_pages": num_pages, 
+        "cur_pages": page, 
+        "posts": [post.serialize() for post in page_obj]}, safe=False)
+
+@csrf_exempt
+def profile_view(request, lookupUser):
+    if request.user.is_authenticated:
+        loggedIn = True
+    else:
+        loggedIn = False
+    profile = User.objects.get(pk=lookupUser)
+    profile_followers = User.objects.filter(following=lookupUser)
+    if profile_followers:
+        for f in profile_followers:
+            if str(f.username) == str(request.user):
+                isFollowing = True
+            else:
+                isFollowing = False
+    else:
+        isFollowing = False
+    if str(request.user) == str(profile.username):
+        notownProfile = False
+    else:
+        notownProfile = True
+    return JsonResponse({
+                "loggedIn": loggedIn, 
+                "id": profile.pk,
+                "notownProfile": notownProfile,
+                "username": profile.username,
+                "followers": profile_followers.count(),
+                "following": profile.following.count(),
+                "isFollowing": isFollowing,
+    })
 
 @csrf_exempt
 @login_required
-def profile_view(request, user):
-    _user = User.objects.get(pk=user)
-    followers = User.objects.filter(following=user).count()
-    username = _user.username
-    following = _user.following.count()
-    user_posts = Post.objects.filter(user=user)
+def updateFollowing(request):
+    data = json.loads(request.body)
+    current_userId = data.get("currentUser", "")
+    target_userId = data.get("targetUser", "")
+    current_user = User.objects.get(pk=current_userId)
+    target_user = User.objects.get(username=target_userId)
+    profile_followers = User.objects.filter(following=target_user)
 
-    #if request.method == "POST":
-    return render(request, "network/profile.html", {
-                "username": username,
-                "followers": followers,
-                "following": following,
-                "user_posts": user_posts
-    })
+    _userFollowing = current_user.following.all()
+    if _userFollowing:
+        for f in _userFollowing:
+            if str(f.username) == str(target_user):
+                current_user.following.remove(target_user)
+                msg = 0
+            else:
+                current_user.following.add(target_user)
+                msg = 1
+    else:
+        current_user.following.add(target_user)
+        msg = "Added"
+    return JsonResponse({
+        "status" : msg,
+        "following": target_user.following.count(),
+        "followers": profile_followers.count()
+        })
+
+@csrf_exempt
+@login_required
+def post_udpate(request, post_id):
+    data = json.loads(request.body)
+    new_content = data.get("content", "")
+    post = Post.objects.get(pk=post_id)
+    if (request.user == post.user):
+        post.content = new_content
+        post.save()
+        return JsonResponse({"new_content" : new_content, "msg": "Saved."})
+    else:
+        return JsonResponse({"new_content" : post.content, "msg": "You do not have permission."})
+
+@csrf_exempt
+@login_required
+def like_post(request, post_id):
+    user = User.objects.get(username=request.user)
+    post = Post.objects.get(pk=post_id)
+    likes = post.likes.all()
+    if likes:
+        for like in likes:
+            if (str(like.username) == str(request.user)):
+                post.likes.remove(user)
+    else:
+        post.likes.add(user)
+    new_like_count = Post.objects.get(pk=post_id).likes.count()
+    return JsonResponse({"like_count" : new_like_count})
