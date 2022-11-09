@@ -14,13 +14,7 @@
                 <div class="links-container">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" id="userProfile">Welcome, <strong></strong>!</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="all">All Posts</strong></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="following">Following</strong></a>
+                        <a class="nav-link" id="userProfile">Welcome, <strong>{{ user.username }}</strong>!</a>
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
