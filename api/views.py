@@ -3,6 +3,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from volunteercenter.serializers import UserSerializer, deliverySerializer, prescriptionSerializer, welfareSerializer
 from volunteercenter.models import User, Delivery, Prescription, Welfare
+import io
+from django.http import FileResponse
+from reportlab.pdfgen import canvas
 
 @csrf_exempt
 @login_required
@@ -48,3 +51,33 @@ def client_details(request, id):
         }, safe=False)
     else:
         return
+
+@csrf_exempt
+@login_required
+def order_details(request, id):
+    if request.user.is_authenticated:
+
+        if Delivery.objects.filter(order_number=id).exists():
+            details = Delivery.objects.get(order_number=id)
+            serializer = deliverySerializer(details)
+        if Prescription.objects.filter(order_number=id).exists():
+            details = Prescription.objects.get(order_number=id)
+            serializer = prescriptionSerializer(details)
+        if Welfare.objects.filter(order_number=id).exists():
+            details = Welfare.objects.get(order_number=id)
+            serializer = welfareSerializer(details)   
+
+        return  JsonResponse({
+            "details": serializer.data
+        }, safe=False)
+
+@csrf_exempt
+@login_required
+def pdf(request):
+    buffer = io.BytesIO()
+    p = canvas.Canvas(buffer)
+    p.drawString(100, 100, "Hello world.")
+    p.showPage()
+    p.save()
+    buffer.seek(0)
+    return FileResponse(buffer, as_attachment=True, filename='hello.pdf')
