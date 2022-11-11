@@ -1,7 +1,14 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
-from rest_framework import serializers
+from random import randrange
+
+def generate_order_number():
+    while True:
+        code = randrange(10000,20000)
+        if Delivery.objects.filter(order_number=code).count() == 0 and Prescription.objects.filter(order_number=code).count() == 0 and Welfare.objects.filter(order_number=code).count() == 0:
+            break
+    return code
 
 DEPARTMENT_CHOICES = (
     ('none', 'NONE'),
@@ -47,6 +54,7 @@ class User(AbstractUser):
 #Operation Models
 
 class Delivery(models.Model):
+    order_number = models.IntegerField(max_length=7, default=generate_order_number, blank=True)    
     delivery_client = models.ForeignKey(User, on_delete=models.CASCADE, related_name="delivery_client")
     order = models.TextField(blank=True, max_length=1000)
     date_created = models.DateTimeField(auto_now_add=True)
@@ -55,6 +63,7 @@ class Delivery(models.Model):
     status = models.CharField(max_length=20, choices=STATUS, default='recieved')
 
 class Prescription(models.Model):
+    order_number = models.IntegerField(max_length=7, default=generate_order_number, blank=True)
     prescription_client = models.ForeignKey(User, on_delete=models.CASCADE, related_name="prescription_client")
     order_details = models.TextField(blank=True, max_length=1000)
     pharmacy = models.TextField(blank=True, max_length=1000)
@@ -64,6 +73,7 @@ class Prescription(models.Model):
     status = models.CharField(max_length=20, choices=STATUS, default='recieved')
 
 class Welfare(models.Model):
+    order_number = models.IntegerField(max_length=7, default=generate_order_number, blank=True)
     welfare_client = models.ForeignKey(User, on_delete=models.CASCADE, related_name="welfare_client")
     notes = models.TextField(blank=True, max_length=1000)
     date_created = models.DateTimeField(auto_now_add=True)

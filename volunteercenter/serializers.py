@@ -19,6 +19,8 @@ class deliverySerializer(serializers.ModelSerializer):
     class Meta:
         model = Delivery
         fields = (
+            "id",
+            "order_number",
             "order",
             "date_created",
             "date_due",
@@ -30,6 +32,8 @@ class prescriptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Prescription
         fields = (
+            "id",
+            "order_number",
             "order_details",
             "pharmacy",
             "date_created",
@@ -42,6 +46,8 @@ class welfareSerializer(serializers.ModelSerializer):
     class Meta:
         model = Welfare
         fields = (
+            "id",
+            "order_number",
             "notes",
             "date_created",
             "date_due",
