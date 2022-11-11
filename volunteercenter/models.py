@@ -35,21 +35,13 @@ STATUS = (
 class User(AbstractUser):
     user_type = models.CharField(max_length=20, choices=USER_TYPE, default='none')
     department = models.CharField(max_length=20, choices=DEPARTMENT_CHOICES, default='none')
-    phone_number = PhoneNumberField(blank=True)
+    phone_number = models.CharField(max_length=12, blank=True)
     address_1 = models.CharField(max_length=130, blank=True)
     address_2 = models.CharField(max_length=130, blank=True)
     city = models.CharField(max_length=130, blank=True)
     county = models.CharField(max_length=130, blank=True)
     postcode = models.CharField(max_length=130, blank=True)
-    def seralize(self):
-        return {
-            "id": self.pk,
-            "username": self.username,
-            "email": self.email,
-            "type": self.user_type,
-            "phone": self.phone_number,
-            "postcode": self.postcode
-        }
+
 
 #Operation Models
 

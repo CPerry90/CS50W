@@ -7,10 +7,14 @@ from volunteercenter.models import User, Delivery, Prescription, Welfare
 @csrf_exempt
 @login_required
 def user_search(request):
+    clients = []
     if request.user.is_authenticated:
-        clients = User.objects.filter(user_type="client")
+        _clients = User.objects.filter(user_type="client")
+        for client in _clients:
+            serializer = UserSerializer(client)
+            clients.append(serializer.data)
         return JsonResponse({
-            "clients": [client.seralize() for client in clients]
+            "clients": clients
         }, safe=False)
     else:
         return
