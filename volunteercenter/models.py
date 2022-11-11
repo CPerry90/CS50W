@@ -38,6 +38,7 @@ class User(AbstractUser):
         return {
             "id": self.pk,
             "username": self.username,
+            "email": self.email,
             "type": self.user_type,
             "phone": self.phone_number,
             "postcode": self.postcode

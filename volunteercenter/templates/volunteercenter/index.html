@@ -3,13 +3,23 @@
 
 {% block body %}
 {{ request.user.id|json_script:"user_id" }}
-<div id="main">
+<div id="search-main">
     <div class="row search-row">
+    <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div id="client-search"></div>
+        </div>
+    <div class="col-md-4"></div>
+    </div>
+</div>
+
+<div id="client-main">
+    <div class="row client-row" id="">
         <div class="col-md-4"></div>
-            <div class="col-md-4">
-                <div id="client-search"></div>
-            </div>
+        <div class="col-md-4">
+            <div id="client"></div>
+        </div>
         <div class="col-md-4"></div>
-    <div id="app"></div>
+    </div>
 </div>
 {% endblock %}
