@@ -41,7 +41,8 @@ class User(AbstractUser):
     city = models.CharField(max_length=130, blank=True)
     county = models.CharField(max_length=130, blank=True)
     postcode = models.CharField(max_length=130, blank=True)
-
+    def __str__(self):
+        return f"{self.username}"
 
 #Operation Models
 
@@ -53,7 +54,10 @@ class Delivery(models.Model):
     date_due = models.DateTimeField()
     operator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="delivery_operator")
     status = models.CharField(max_length=20, choices=STATUS, default='recieved')
-
+    def serialize(self):
+        return {
+            "date_created": self.date_created.strftime("%d %b %Y, %I:%M %p")
+        }
 class Prescription(models.Model):
     order_number = models.IntegerField(max_length=7, default=generate_order_number, blank=True)
     prescription_client = models.ForeignKey(User, on_delete=models.CASCADE, related_name="prescription_client")

@@ -6,6 +6,7 @@ from volunteercenter.models import User, Delivery, Prescription, Welfare
 import io
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
+from reportlab.platypus import Paragraph
 
 @csrf_exempt
 @login_required
@@ -59,7 +60,11 @@ def order_details(request, id):
 
         if Delivery.objects.filter(order_number=id).exists():
             details = Delivery.objects.get(order_number=id)
-            serializer = deliverySerializer(details)
+            client = User.objects.get(username=details.delivery_client)
+            operator = User.objects.get(username=details.operator)
+            detailsSerializer = deliverySerializer(details)
+            clientSerializer = UserSerializer(client)
+            operatorSerializer = UserSerializer(operator)
         if Prescription.objects.filter(order_number=id).exists():
             details = Prescription.objects.get(order_number=id)
             serializer = prescriptionSerializer(details)
@@ -68,16 +73,56 @@ def order_details(request, id):
             serializer = welfareSerializer(details)   
 
         return  JsonResponse({
-            "details": serializer.data
+            "details": detailsSerializer.data,
+            "client": clientSerializer.data,
+            "operator": operatorSerializer.data
         }, safe=False)
 
 @csrf_exempt
 @login_required
-def pdf(request):
-    buffer = io.BytesIO()
-    p = canvas.Canvas(buffer)
-    p.drawString(100, 100, "Hello world.")
-    p.showPage()
-    p.save()
-    buffer.seek(0)
-    return FileResponse(buffer, as_attachment=True, filename='hello.pdf')
+def pdf(request, order_number):
+    if Delivery.objects.filter(order_number=order_number).exists():
+        details = Delivery.objects.get(order_number=order_number)
+        created_at = details.date_created.strftime("%d %b %Y, %I:%M %p")
+        due_at = details.date_due.strftime("%d %b %Y")
+        client = User.objects.get(username=details.delivery_client)
+        buffer = io.BytesIO()
+        p = canvas.Canvas(buffer)
+        p.drawString(50, 790, f"Request no. {order_number}")
+        p.drawString(50, 755, f"{client.last_name}, {client.first_name}")
+        p.drawString(50, 740, f"{client.address_1}")
+        if client.address_2 != "":
+            p.drawString(50, 725, f"{client.address_2}")
+            p.drawString(50, 710, f"{client.city}")
+            p.drawString(50, 695, f"{client.county}")
+            p.drawString(50, 680, f"{client.postcode}")
+            p.drawString(50, 665, f"{client.email}")
+            p.drawString(50, 650, f"{client.phone_number}")
+        else:
+            p.drawString(50, 725, f"{client.city}")
+            p.drawString(50, 710, f"{client.county}")
+            p.drawString(50, 695, f"{client.postcode}")
+            p.drawString(50, 680, f"{client.email}")
+            p.drawString(50, 665, f"{client.phone_number}")
+        topLine = [(50,650,540,650)]
+        p.lines(topLine)
+        p.drawString(50, 620, "Delivery Details")
+        paragraph = Paragraph(f"{details.order}")
+        paragraph.wrapOn(p, 800, 600)
+        paragraph.drawOn(p, 50, 580)
+        botLine = [(50,100,540,100)]
+        p.drawString(50, 80, f"Call Handler: {request.user.username}")
+        p.drawString(50, 65, f"Created: {created_at}")
+        p.drawString(50, 50, f"Due on: {due_at}")
+        p.drawString(400, 80, f"Assigned to: {details.operator}")
+        p.drawString(400, 65, f"Status: {details.status}")
+        p.lines(botLine)
+        p.showPage()
+        p.save()
+        buffer.seek(0)
+    return FileResponse(buffer, as_attachment=True, filename=f"Order-{order_number}.pdf")
+    if Prescription.objects.filter(order_number=order_number).exists():
+        details = Prescription.objects.get(order_number=order_number)
+    if Welfare.objects.filter(order_number=order_number).exists():
+        details = Welfare.objects.get(order_number=order_number)  
+

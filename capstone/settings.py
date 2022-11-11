@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
+    'api',
     'phonenumber_field',
     'volunteercenter',
     'django.contrib.admin',
@@ -71,6 +73,10 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'capstone.wsgi.application'
+
+REST_FRAMEWORK = {
+    'DATETIME_FORMAT': "%m/%d/%Y %H:%M:%S",
+}
 
 
 # Database
@@ -112,7 +118,7 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -125,3 +131,4 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'volunteercenter.User'
+

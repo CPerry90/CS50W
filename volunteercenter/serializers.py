@@ -28,7 +28,8 @@ class deliverySerializer(serializers.ModelSerializer):
             "date_created",
             "date_due",
             "status",
-            "operator"
+            "operator",
+            "delivery_client"
         )
 
 class prescriptionSerializer(serializers.ModelSerializer):

@@ -8,4 +8,33 @@
   margin-top: 40vh;
 }
 
+.order {
+  margin-top: 80px;
+}
+
+.client-row {
+  margin-top: 80px;
+}
+
+.client-details-container {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+}
+
+#info {
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+#info:hover {
+  background-color: rgba(0, 128, 0, 0.26);
+}
+
 /*# sourceMappingURL=styles.css.map */
