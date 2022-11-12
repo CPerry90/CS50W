@@ -201,6 +201,37 @@ def editClient(request):
     else:
         return render(request, "volunteercenter/login.html")
 
+@csrf_exempt
+@login_required
+def order_update(request):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            data = json.loads(request.body)
+            token = data.get("token", "")
+            if token == "1234":
+                id = data.get("order", "")
+                if Delivery.objects.filter(order_number=id).exists():
+                    order = Delivery.objects.get(order_number=id)
+                    order.order = data.get("content", "")
+                    order.save()
+                    return JsonResponse({"message": "Saved", "new_content": data.get("content", "")}, status=201)
+                if Prescription.objects.filter(order_number=id).exists():
+                    order = Prescription.objects.get(order_number=id)
+                    order.order_details = data.get("content", "")
+                    order.save()
+                    return JsonResponse({"message": "Saved", "new_content": data.get("content", "")}, status=201)
+                if Welfare.objects.filter(order_number=id).exists():
+                    order = Welfare.objects.get(order_number=id)
+                    order.notes = data.get("content", "")
+                    order.save()
+                    return JsonResponse({"message": "Saved", "new_content": data.get("content", "")}, status=201)
+            else:
+                return render(request, "volunteercenter/login.html")
+        else:
+            return render(request, "volunteercenter/login.html")
+    else:
+        return render(request, "volunteercenter/login.html")
+
 
 
 
@@ -209,7 +240,6 @@ def editClient(request):
 def pdf(request, order_number):
     buffer = io.BytesIO()
     p = canvas.Canvas(buffer)
-
     if Delivery.objects.filter(order_number=order_number).exists():
         details = Delivery.objects.get(order_number=order_number)
         created_at = details.date_created.strftime("%d %b %Y, %I:%M %p")
@@ -265,8 +295,5 @@ def pdf(request, order_number):
     p.save()
     buffer.seek(0)
     return FileResponse(buffer, as_attachment=True, filename=f"Order-{order_number}.pdf")
-    if Prescription.objects.filter(order_number=order_number).exists():
-        details = Prescription.objects.get(order_number=order_number)
-    if Welfare.objects.filter(order_number=order_number).exists():
-        details = Welfare.objects.get(order_number=order_number)  
+
 
