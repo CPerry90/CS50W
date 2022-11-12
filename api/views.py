@@ -58,11 +58,11 @@ def client_details(request, id):
                         prescription.append(_prescriptionSerializer.data)
                     list["prescription"] = prescription
                 if Welfare.objects.filter(welfare_client=client).exists():
-                    welfareObjs = Prescription.objects.filter(welfare_client=client).order_by("-date_created").all()
+                    welfareObjs = Welfare.objects.filter(welfare_client=client).order_by("-date_created").all()
                     welfare = []
-                    for welfare in welfareObjs:
-                        welfareSerializer = prescriptionSerializer(welfare)
-                        welfare.append(welfareSerializer.data)
+                    for _welfare in welfareObjs:
+                        _welfareSerializer = welfareSerializer(_welfare)
+                        welfare.append(_welfareSerializer.data)
                     list["welfare"] = welfare
                 return JsonResponse({
                     "data": list
@@ -146,7 +146,22 @@ def new_order(request):
                     )
                     delivery.save()
                     return JsonResponse({"message": "Post sent successfully"}, status=201)
-
+                if type == "prescription":
+                    pharm = data.get("pharm", "")
+                    presc = Prescription(
+                        prescription_client = client_Obj,
+                        order_details = details,
+                        pharmacy = pharm
+                    )
+                    presc.save()
+                    return JsonResponse({"message": "Post sent successfully"}, status=201)
+                if type == "welfare":
+                    welfare = Welfare(
+                        welfare_client = client_Obj,
+                        notes = details,
+                    )
+                    welfare.save()
+                    return JsonResponse({"message": "Post sent successfully"}, status=201)
 
 
 @csrf_exempt
