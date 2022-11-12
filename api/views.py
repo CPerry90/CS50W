@@ -162,6 +162,46 @@ def new_order(request):
                     )
                     welfare.save()
                     return JsonResponse({"message": "Post sent successfully"}, status=201)
+            else:
+                return render(request, "volunteercenter/login.html")
+        else:
+            return render(request, "volunteercenter/login.html")
+    else:
+        return render(request, "volunteercenter/login.html")
+
+@csrf_exempt
+@login_required
+def editClient(request):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            data = json.loads(request.body)
+            token = data.get("token", "")
+            if token == "1234":
+                id = data.get("id", "")
+                clientToEdit = User.objects.get(pk=id)
+                clientToEdit.first_name = data.get("first_name", "")
+                clientToEdit.last_name = data.get("last_name", "")
+                clientToEdit.email = data.get("email", "")
+                clientToEdit.phone_number = data.get("phone_number", "")
+                clientToEdit.address_1 = data.get("address_1", "")
+                clientToEdit.address_2 = data.get("address_2", "")
+                clientToEdit.city = data.get("city", "")
+                clientToEdit.county = data.get("county", "")
+                clientToEdit.postcode = data.get("postcode", "")
+                clientToEdit.save()
+                serializer = UserSerializer(clientToEdit)
+                return JsonResponse({
+                    "message": "Saved", 
+                    "client": serializer.data}, 
+                    status=201)
+            else:
+                return render(request, "volunteercenter/login.html")
+        else:
+            return render(request, "volunteercenter/login.html")
+    else:
+        return render(request, "volunteercenter/login.html")
+
+
 
 
 @csrf_exempt

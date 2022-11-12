@@ -32,6 +32,10 @@
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
   cursor: pointer;
 }
+#info .status {
+  margin-left: auto;
+  margin-right: 15%;
+}
 
 #info:hover {
   background-color: rgba(0, 128, 0, 0.26);
@@ -41,6 +45,11 @@
   margin-top: 80px;
   width: 100%;
   min-height: 300px;
+}
+
+.no-margin {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 
 /*# sourceMappingURL=styles.css.map */

@@ -15,6 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
             "address_1",
             "address_2",
             "city",
+            "county",
             "postcode",
         )
 
