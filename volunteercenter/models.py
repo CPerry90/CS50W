@@ -51,8 +51,8 @@ class Delivery(models.Model):
     delivery_client = models.ForeignKey(User, on_delete=models.CASCADE, related_name="delivery_client")
     order = models.TextField(blank=True, max_length=1000)
     date_created = models.DateTimeField(auto_now_add=True)
-    date_due = models.DateTimeField()
-    operator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="delivery_operator")
+    date_due = models.DateTimeField(blank=True, null=True)
+    operator = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE, related_name="delivery_operator")
     status = models.CharField(max_length=20, choices=STATUS, default='recieved')
     def serialize(self):
         return {
@@ -64,8 +64,8 @@ class Prescription(models.Model):
     order_details = models.TextField(blank=True, max_length=1000)
     pharmacy = models.TextField(blank=True, max_length=1000)
     date_created = models.DateTimeField(auto_now_add=True)
-    date_due = models.DateTimeField()
-    operator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="prescription_operator")
+    date_due = models.DateTimeField(blank=True, null=True)
+    operator = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE, related_name="prescription_operator")
     status = models.CharField(max_length=20, choices=STATUS, default='recieved')
 
 class Welfare(models.Model):
@@ -73,6 +73,6 @@ class Welfare(models.Model):
     welfare_client = models.ForeignKey(User, on_delete=models.CASCADE, related_name="welfare_client")
     notes = models.TextField(blank=True, max_length=1000)
     date_created = models.DateTimeField(auto_now_add=True)
-    date_due = models.DateTimeField()
-    operator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="welfare_operator")
+    date_due = models.DateTimeField(blank=True, null=True)
+    operator = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE, related_name="welfare_operator")
     status = models.CharField(max_length=20, choices=STATUS, default='recieved')

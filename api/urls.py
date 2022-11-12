@@ -6,4 +6,5 @@ urlpatterns = [
     path("client_details/<int:id>", views.client_details, name="client_details"),
     path("order_details/<int:id>", views.order_details, name="client_details"),
     path("pdf/<int:order_number>", views.pdf, name="pdf"),
+    path("new_order", views.new_order, name="new_order"),
 ]

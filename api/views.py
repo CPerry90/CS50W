@@ -44,20 +44,23 @@ def client_details(request, id):
             if token == "1234":
                 client = User.objects.get(pk=id)
                 if Delivery.objects.filter(delivery_client=client).exists():
+                    deliveryObjs = Delivery.objects.filter(delivery_client=client).order_by("-date_created").all()
                     delivery = []
-                    for _delivery in Delivery.objects.filter(delivery_client=client):
+                    for _delivery in deliveryObjs:
                         _deliverySerializer = deliverySerializer(_delivery)
                         delivery.append(_deliverySerializer.data)
                     list["delivery"] = delivery
                 if Prescription.objects.filter(prescription_client=client).exists():
+                    prescObjs = Prescription.objects.filter(prescription_client=client).order_by("-date_created").all()
                     prescription = []
-                    for _prescription in Prescription.objects.filter(prescription_client=client):
+                    for _prescription in prescObjs:
                         _prescriptionSerializer = prescriptionSerializer(_prescription)
                         prescription.append(_prescriptionSerializer.data)
                     list["prescription"] = prescription
                 if Welfare.objects.filter(welfare_client=client).exists():
+                    welfareObjs = Prescription.objects.filter(welfare_client=client).order_by("-date_created").all()
                     welfare = []
-                    for welfare in Prescription.objects.filter(welfare_client=client):
+                    for welfare in welfareObjs:
                         welfareSerializer = prescriptionSerializer(welfare)
                         welfare.append(welfareSerializer.data)
                     list["welfare"] = welfare
@@ -82,31 +85,40 @@ def order_details(request, id):
                 if Delivery.objects.filter(order_number=id).exists():
                     details = Delivery.objects.get(order_number=id)
                     client = User.objects.get(username=details.delivery_client)
-                    operator = User.objects.get(username=details.operator)
                     detailsSerializer = deliverySerializer(details)
                     clientSerializer = UserSerializer(client)
-                    operatorSerializer = UserSerializer(operator)
-
+                    if User.objects.filter(username=details.operator).exists():
+                        operator = User.objects.get(username=details.operator)
+                        operatorSerializer = UserSerializer(operator)
+                        op = operatorSerializer.data
+                    else:
+                        op = {"username": "Awaiting Assignment"}
                 if Prescription.objects.filter(order_number=id).exists():
                     details = Prescription.objects.get(order_number=id)
                     client = User.objects.get(username=details.prescription_client)
-                    operator = User.objects.get(username=details.operator)
                     detailsSerializer = prescriptionSerializer(details)
                     clientSerializer = UserSerializer(client)
-                    operatorSerializer = UserSerializer(operator)
-
+                    if User.objects.filter(username=details.operator).exists():
+                        operator = User.objects.get(username=details.operator)
+                        operatorSerializer = UserSerializer(operator)
+                        op = operatorSerializer.data
+                    else:
+                        op = {"username": "Awaiting Assignment"}
                 if Welfare.objects.filter(order_number=id).exists():
                     details = Welfare.objects.get(order_number=id)
                     client = User.objects.get(username=details.welfare_client)
-                    operator = User.objects.get(username=details.operator)
                     detailsSerializer = welfareSerializer(details)
                     clientSerializer = UserSerializer(client)
-                    operatorSerializer = UserSerializer(operator)
-
+                    if User.objects.filter(username=details.operator).exists():
+                        operator = User.objects.get(username=details.operator)
+                        operatorSerializer = UserSerializer(operator)
+                        op = operatorSerializer.data
+                    else:
+                        op = {"username": "Awaiting Assignment"}
                 return  JsonResponse({
                     "details": detailsSerializer.data,
                     "client": clientSerializer.data,
-                    "operator": operatorSerializer.data
+                    "operator": op
                 }, safe=False)
             else:
                 return render(request, "volunteercenter/login.html")
@@ -114,6 +126,28 @@ def order_details(request, id):
             return render(request, "volunteercenter/login.html")
     else:
         return render(request, "volunteercenter/login.html")
+
+@csrf_exempt
+@login_required
+def new_order(request):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            data = json.loads(request.body)
+            token = data.get("token", "")
+            if token == "1234":
+                type = data.get("type", "")
+                client = data.get("client", "")
+                client_Obj = User.objects.get(pk=client)
+                details = data.get("details", "")
+                if type == "delivery":
+                    delivery = Delivery(
+                        delivery_client = client_Obj,
+                        order = details,
+                    )
+                    delivery.save()
+                    return JsonResponse({"message": "Post sent successfully"}, status=201)
+
+
 
 @csrf_exempt
 @login_required

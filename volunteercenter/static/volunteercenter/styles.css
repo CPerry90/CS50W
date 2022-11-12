@@ -37,4 +37,10 @@
   background-color: rgba(0, 128, 0, 0.26);
 }
 
+.delivery-form {
+  margin-top: 80px;
+  width: 100%;
+  min-height: 300px;
+}
+
 /*# sourceMappingURL=styles.css.map */
