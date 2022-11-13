@@ -139,10 +139,12 @@ def new_order(request):
                 client = data.get("client", "")
                 client_Obj = User.objects.get(pk=client)
                 details = data.get("details", "")
+                date = data.get("date", "")
                 if type == "delivery":
                     delivery = Delivery(
                         delivery_client = client_Obj,
                         order = details,
+                        date_due = date
                     )
                     delivery.save()
                     return JsonResponse({"message": "Post sent successfully"}, status=201)
@@ -151,7 +153,8 @@ def new_order(request):
                     presc = Prescription(
                         prescription_client = client_Obj,
                         order_details = details,
-                        pharmacy = pharm
+                        pharmacy = pharm,
+                        date_due = date
                     )
                     presc.save()
                     return JsonResponse({"message": "Post sent successfully"}, status=201)
@@ -159,6 +162,7 @@ def new_order(request):
                     welfare = Welfare(
                         welfare_client = client_Obj,
                         notes = details,
+                        date_due = date
                     )
                     welfare.save()
                     return JsonResponse({"message": "Post sent successfully"}, status=201)
@@ -242,22 +246,22 @@ def pdf(request, order_number):
     p = canvas.Canvas(buffer)
     if Delivery.objects.filter(order_number=order_number).exists():
         details = Delivery.objects.get(order_number=order_number)
-        created_at = details.date_created.strftime("%d %b %Y, %I:%M %p")
-        due_at = details.date_due.strftime("%d %b %Y")
+        created_at = details.date_created.strftime("%d %B, %Y")
+        due_at = details.date_due.strftime("%d %B, %Y")
         client = User.objects.get(username=details.delivery_client)
         body = details.order
         other = ""
     elif Prescription.objects.filter(order_number=order_number).exists():
         details = Prescription.objects.get(order_number=order_number)
-        created_at = details.date_created.strftime("%d %b %Y, %I:%M %p")
-        due_at = details.date_due.strftime("%d %b %Y")
+        created_at = details.date_created.strftime("%d %B, %Y")
+        due_at = details.date_due.strftime("%d %B, %Y")
         client = User.objects.get(username=details.prescription_client)
         body = details.order_details
         other = str("Pharmacy: " + details.pharmacy)
     elif Welfare.objects.filter(order_number=order_number).exists():
         details = Welfare.objects.get(order_number=order_number)
-        created_at = details.date_created.strftime("%d %b %Y, %I:%M %p")
-        due_at = details.date_due.strftime("%d %b %Y")
+        created_at = details.date_created.strftime("%d %B, %Y")
+        due_at = details.date_due.strftime("%d %B, %Y")
         client = User.objects.get(username=details.welfare_client)
         body = details.notes
         other = ""

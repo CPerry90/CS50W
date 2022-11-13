@@ -75,7 +75,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'capstone.wsgi.application'
 
 REST_FRAMEWORK = {
-    'DATETIME_FORMAT': "%m/%d/%Y %H:%M:%S",
+    'DATETIME_FORMAT': "%d %B, %Y - %H:%M:%S",
+    'DATE_FORMAT': "%d %B, %Y",
 }
 
 
