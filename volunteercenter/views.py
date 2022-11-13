@@ -12,9 +12,28 @@ from .models import User, Delivery, Prescription, Welfare
 # Create your views here.
 def index(request):
     if request.user.is_authenticated:
-        return render(request, "volunteercenter/index.html")
+        if request.user.user_type == "handler":
+            return HttpResponseRedirect(reverse("call_handler_index"))
+        elif request.user.user_type == "operator":
+            return HttpResponseRedirect(reverse("operator_index"))
+        else:
+            return render(request, "volunteercenter/index.html")
     else:
         return HttpResponseRedirect(reverse("login"))
+
+def call_handler_index(request):
+    if request.user.is_authenticated:
+        return render(request, "volunteercenter/callhandler.html")
+    else:
+        return HttpResponseRedirect(reverse("login"))
+
+def operator_index(request):
+    if request.user.is_authenticated:
+        return render(request, "volunteercenter/operator.html")
+    else:
+        return HttpResponseRedirect(reverse("login"))
+
+
 
 def login_view(request):
     if request.method == "POST":

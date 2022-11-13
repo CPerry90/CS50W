@@ -1,0 +1,33 @@
+{% extends "volunteercenter/layout.html" %}
+{% load static %}
+
+{% block body %}
+{{ request.user.id|json_script:"user_id" }}
+<div id="search-main">
+    <div class="row search-row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4" id="client-search"></div>
+    <div class="col-md-4"></div>
+    </div>
+</div>
+
+<div id="client-main">
+    <div class="row client-row" id="">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div id="client"></div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
+
+<div id="order-view">
+    <div class="row order-row" id="">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div id="order"></div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
+{% endblock %}
