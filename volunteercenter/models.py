@@ -14,8 +14,7 @@ DEPARTMENT_CHOICES = (
     ('none', 'NONE'),
     ('delivery', 'DELIVERY'),
     ('prescription', 'PRESCRIPTION'),
-    ('welfare', 'WELFARE'),
-    ('taxi', 'TAXI')
+    ('welfare', 'WELFARE')
 )
 
 USER_TYPE = (

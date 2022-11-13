@@ -217,16 +217,20 @@ def order_update(request):
                 if Delivery.objects.filter(order_number=id).exists():
                     order = Delivery.objects.get(order_number=id)
                     order.order = data.get("content", "")
+                    order.date_due = data.get("date", "")
                     order.save()
                     return JsonResponse({"message": "Saved", "new_content": data.get("content", "")}, status=201)
                 if Prescription.objects.filter(order_number=id).exists():
                     order = Prescription.objects.get(order_number=id)
                     order.order_details = data.get("content", "")
+                    order.date_due = data.get("date", "")
+                    order.pharmacy = data.get("pharmacy", "")
                     order.save()
                     return JsonResponse({"message": "Saved", "new_content": data.get("content", "")}, status=201)
                 if Welfare.objects.filter(order_number=id).exists():
                     order = Welfare.objects.get(order_number=id)
                     order.notes = data.get("content", "")
+                    order.date_due = data.get("date", "")
                     order.save()
                     return JsonResponse({"message": "Saved", "new_content": data.get("content", "")}, status=201)
             else:
