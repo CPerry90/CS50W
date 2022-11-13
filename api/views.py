@@ -175,6 +175,39 @@ def new_order(request):
 
 @csrf_exempt
 @login_required
+def newClient(request):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            data = json.loads(request.body)
+            token = data.get("token", "")
+            if token == "1234":
+                newUser = User(
+                    username = data.get("first_name", ""),
+                    first_name = data.get("first_name", ""),
+                    last_name = data.get("last_name", ""),
+                    email = data.get("email", ""),
+                    phone_number = data.get("phone_number", ""),
+                    address_1 = data.get("address_1", ""),
+                    address_2 = data.get("address_2", ""),
+                    city = data.get("city", ""),
+                    county = data.get("county", ""),
+                    postcode = data.get("postcode", "")
+                )
+                newUser.save()
+                serializer = UserSerializer(newUser)
+                return JsonResponse({
+                    "message": "Saved", 
+                    "client": serializer.data}, 
+                    status=201)
+            else:
+                return render(request, "volunteercenter/login.html")
+        else:
+            return render(request, "volunteercenter/login.html")
+    else:
+        return render(request, "volunteercenter/login.html")
+
+@csrf_exempt
+@login_required
 def editClient(request):
     if request.user.is_authenticated:
         if request.method == "POST":
