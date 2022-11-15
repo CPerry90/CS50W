@@ -1,0 +1,2 @@
+/*! For license information please see client.js.LICENSE.txt */
+(()=>{var __webpack_modules__={"./src/client/client.js":()=>{eval('document.addEventListener("DOMContentLoaded", function () {\n  console.log("Loaded");\n});\n\n//# sourceURL=webpack://volunteercenter/./src/client/client.js?')}},__webpack_exports__={};__webpack_modules__["./src/client/client.js"]()})();

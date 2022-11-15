@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import User, Delivery, Prescription, Welfare
 
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -19,6 +20,7 @@ class UserSerializer(serializers.ModelSerializer):
             "postcode",
         )
 
+
 class deliverySerializer(serializers.ModelSerializer):
     class Meta:
         model = Delivery
@@ -30,8 +32,9 @@ class deliverySerializer(serializers.ModelSerializer):
             "date_due",
             "status",
             "operator",
-            "delivery_client"
+            "delivery_client",
         )
+
 
 class prescriptionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -44,8 +47,9 @@ class prescriptionSerializer(serializers.ModelSerializer):
             "date_created",
             "date_due",
             "status",
-            "operator"
+            "operator",
         )
+
 
 class welfareSerializer(serializers.ModelSerializer):
     class Meta:
@@ -57,5 +61,5 @@ class welfareSerializer(serializers.ModelSerializer):
             "date_created",
             "date_due",
             "status",
-            "operator"
+            "operator",
         )

@@ -1,7 +1,6 @@
-{% extends "volunteercenter/layout.html" %}
-{% load static %}
-
-{% block body %}
+{% extends "volunteercenter/layout.html" %} {% load static %} {% block body %}
 {{ request.user.id|json_script:"user_id" }}
-
+<div id="main"></div>
+{% endblock %} {% block script %}
+<script src="{% static 'volunteercenter/index.js' %}"></script>
 {% endblock %}

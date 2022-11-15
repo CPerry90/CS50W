@@ -1,13 +1,8 @@
-from django.shortcuts import HttpResponse, HttpResponseRedirect, render
+from django.shortcuts import HttpResponseRedirect, render
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
 from django.db import IntegrityError
-import json
-from django.http import JsonResponse
-from .serializers import UserSerializer, deliverySerializer, prescriptionSerializer, welfareSerializer
-from .models import User, Delivery, Prescription, Welfare
+from .models import User
 
 # Create your views here.
 def index(request):
@@ -21,18 +16,19 @@ def index(request):
     else:
         return HttpResponseRedirect(reverse("login"))
 
+
 def call_handler_index(request):
     if request.user.is_authenticated:
         return render(request, "volunteercenter/callhandler.html")
     else:
         return HttpResponseRedirect(reverse("login"))
 
+
 def operator_index(request):
     if request.user.is_authenticated:
         return render(request, "volunteercenter/operator.html")
     else:
         return HttpResponseRedirect(reverse("login"))
-
 
 
 def login_view(request):
@@ -48,9 +44,11 @@ def login_view(request):
             login(request, user)
             return HttpResponseRedirect(reverse("index"))
         else:
-            return render(request, "volunteercenter/login.html", {
-                "message": "Invalid email and/or password."
-            })
+            return render(
+                request,
+                "volunteercenter/login.html",
+                {"message": "Invalid email and/or password."},
+            )
     else:
         return render(request, "volunteercenter/login.html")
 
@@ -69,9 +67,11 @@ def register(request):
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
         if password != confirmation:
-            return render(request, "volunteercenter/register.html", {
-                "message": "Passwords must match."
-            })
+            return render(
+                request,
+                "volunteercenter/register.html",
+                {"message": "Passwords must match."},
+            )
 
         # Attempt to create new user
         try:
@@ -79,9 +79,11 @@ def register(request):
             user.save()
         except IntegrityError as e:
             print(e)
-            return render(request, "volunteercenter/register.html", {
-                "message": "Username address already taken."
-            })
+            return render(
+                request,
+                "volunteercenter/register.html",
+                {"message": "Username address already taken."},
+            )
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
     else:
