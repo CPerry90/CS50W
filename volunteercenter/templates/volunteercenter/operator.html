@@ -1,2 +1,14 @@
 {% extends "volunteercenter/layout.html" %} {% load static %} {% block body %}
-{{ request.user.id|json_script:"user_id" }} {% endblock %}
+{{ request.user.id|json_script:"user_id" }}
+
+<div id="operator-main">
+    <div class="row operator-row" id="">
+        <div class="col-md-4" id="operator-details"></div>
+        <div class="col-md-6" id="operator-orders"></div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+
+{% endblock %} {% block script %}
+<script src="{% static 'volunteercenter/operator.js' %}"></script>
+{% endblock %}

@@ -59,6 +59,29 @@ def user_search(request):
 
 @csrf_exempt
 @login_required
+def op_orders(request):
+    orders = []
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            data = json.loads(request.body)
+            token = data.get("token", "")
+            if token == "1234":
+                if request.user.department == "delivery":
+                    _orders = Delivery.objects.all()
+                    for _order in _orders:
+                        serializer = deliverySerializer(_order)
+                        orders.append(serializer.data)
+                return JsonResponse({"orders": orders}, safe=False)
+            else:
+                return render(request, "volunteercenter/login.html")
+        else:
+            return render(request, "volunteercenter/login.html")
+    else:
+        return render(request, "volunteercenter/login.html")
+
+
+@csrf_exempt
+@login_required
 def client_details(request, id):
     list = {}
     if request.user.is_authenticated:

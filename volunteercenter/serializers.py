@@ -11,6 +11,7 @@ class UserSerializer(serializers.ModelSerializer):
             "first_name",
             "last_name",
             "user_type",
+            "department",
             "email",
             "phone_number",
             "address_1",
@@ -22,6 +23,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class deliverySerializer(serializers.ModelSerializer):
+    delivery_client = UserSerializer()
+
     class Meta:
         model = Delivery
         fields = (

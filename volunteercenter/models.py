@@ -48,8 +48,12 @@ class User(AbstractUser):
     county = models.CharField(max_length=130, blank=True)
     postcode = models.CharField(max_length=130, blank=True)
 
-    def __str__(self):
-        return f"{self.username}"
+    def seralize(self):
+        return {
+            "id": self.pk,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+        }
 
 
 # Operation Models
