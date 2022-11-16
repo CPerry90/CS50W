@@ -4,10 +4,6 @@
   margin-right: auto;
 }
 
-.search-row {
-  margin-top: 40vh;
-}
-
 .order {
   margin-top: 80px;
 }
@@ -50,6 +46,18 @@
 .no-margin {
   margin-left: 0 !important;
   margin-right: 0 !important;
+}
+
+#client-search {
+  margin-top: 35vh;
+}
+
+#user-details {
+  margin-top: 10vh;
+}
+
+input {
+  margin-top: 10px;
 }
 
 /*# sourceMappingURL=styles.css.map */

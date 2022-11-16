@@ -18,6 +18,25 @@ from reportlab.platypus import Paragraph
 
 @csrf_exempt
 @login_required
+def user_details(request):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            data = json.loads(request.body)
+            token = data.get("token", "")
+            if token == "1234":
+                user = User.objects.get(pk=request.user.id)
+                serializer = UserSerializer(user)
+                return JsonResponse({"user": serializer.data}, safe=False)
+            else:
+                return render(request, "volunteercenter/login.html")
+        else:
+            return render(request, "volunteercenter/login.html")
+    else:
+        return render(request, "volunteercenter/login.html")
+
+
+@csrf_exempt
+@login_required
 def user_search(request):
     clients = []
     if request.user.is_authenticated:
