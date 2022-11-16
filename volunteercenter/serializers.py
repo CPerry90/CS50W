@@ -24,6 +24,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class deliverySerializer(serializers.ModelSerializer):
     delivery_client = UserSerializer()
+    operator = UserSerializer()
 
     class Meta:
         model = Delivery
@@ -41,6 +42,7 @@ class deliverySerializer(serializers.ModelSerializer):
 
 class prescriptionSerializer(serializers.ModelSerializer):
     prescription_client = UserSerializer()
+    operator = UserSerializer()
 
     class Meta:
         model = Prescription
@@ -59,6 +61,7 @@ class prescriptionSerializer(serializers.ModelSerializer):
 
 class welfareSerializer(serializers.ModelSerializer):
     welfare_client = UserSerializer()
+    operator = UserSerializer()
 
     class Meta:
         model = Welfare
