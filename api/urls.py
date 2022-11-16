@@ -13,4 +13,5 @@ urlpatterns = [
     path("new_client", views.newClient, name="new_client"),
     path("user_details", views.user_details, name="user_details"),
     path("op_orders", views.op_orders, name="op_orders"),
+    path("order_status", views.order_status, name="order_status"),
 ]

@@ -67,19 +67,20 @@ def op_orders(request):
             token = data.get("token", "")
             if token == "1234":
                 if request.user.department == "delivery":
-                    _orders = Delivery.objects.all()
+                    _orders = Delivery.objects.all().order_by("-date_created")
+
                     for _order in _orders:
                         serializer = deliverySerializer(_order)
                         orders.append(serializer.data)
                     return JsonResponse({"orders": orders}, safe=False)
                 elif request.user.department == "prescription":
-                    _orders = Prescription.objects.all()
+                    _orders = Prescription.objects.all().order_by("-date_created")
                     for _order in _orders:
                         serializer = prescriptionSerializer(_order)
                         orders.append(serializer.data)
                     return JsonResponse({"orders": orders}, safe=False)
                 elif request.user.department == "welfare":
-                    _orders = Welfare.objects.all()
+                    _orders = Welfare.objects.all().order_by("-date_created")
                     for _order in _orders:
                         serializer = welfareSerializer(_order)
                         orders.append(serializer.data)
@@ -155,6 +156,9 @@ def order_details(request, id):
             if token == "1234":
                 if Delivery.objects.filter(order_number=id).exists():
                     details = Delivery.objects.get(order_number=id)
+                    if details.status == "recieved":
+                        details.status = "processing"
+                        details.save()
                     client = User.objects.get(username=details.delivery_client)
                     detailsSerializer = deliverySerializer(details)
                     clientSerializer = UserSerializer(client)
@@ -166,6 +170,9 @@ def order_details(request, id):
                         op = {"username": "Awaiting Assignment"}
                 if Prescription.objects.filter(order_number=id).exists():
                     details = Prescription.objects.get(order_number=id)
+                    if details.status == "recieved":
+                        details.status = "processing"
+                        details.save()
                     client = User.objects.get(username=details.prescription_client)
                     detailsSerializer = prescriptionSerializer(details)
                     clientSerializer = UserSerializer(client)
@@ -177,6 +184,9 @@ def order_details(request, id):
                         op = {"username": "Awaiting Assignment"}
                 if Welfare.objects.filter(order_number=id).exists():
                     details = Welfare.objects.get(order_number=id)
+                    if details.status == "recieved":
+                        details.status = "processing"
+                        details.save()
                     client = User.objects.get(username=details.welfare_client)
                     detailsSerializer = welfareSerializer(details)
                     clientSerializer = UserSerializer(client)
@@ -194,6 +204,37 @@ def order_details(request, id):
                     },
                     safe=False,
                 )
+            else:
+                return render(request, "volunteercenter/login.html")
+        else:
+            return render(request, "volunteercenter/login.html")
+    else:
+        return render(request, "volunteercenter/login.html")
+
+
+@csrf_exempt
+@login_required
+def order_status(request):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            data = json.loads(request.body)
+            token = data.get("token", "")
+            id = data.get("id", "")
+            detail = data.get("detail", "")
+            if token == "1234":
+                if Delivery.objects.filter(order_number=id).exists():
+                    order = Delivery.objects.get(order_number=id)
+                    order.status = detail
+                    order.save()
+                if Prescription.objects.filter(order_number=id).exists():
+                    order = Prescription.objects.get(order_number=id)
+                    order.status = detail
+                    order.save()
+                if Welfare.objects.filter(order_number=id).exists():
+                    order = Welfare.objects.get(order_number=id)
+                    order.status = detail
+                    order.save()
+                return JsonResponse({"message": detail}, safe=False)
             else:
                 return render(request, "volunteercenter/login.html")
         else:

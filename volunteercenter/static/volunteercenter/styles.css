@@ -29,7 +29,6 @@
   padding: 20px;
   margin-top: 20px;
   border-radius: 1rem;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
   cursor: pointer;
 }
 #info .status {
@@ -62,6 +61,44 @@ input {
 
 .orders-container {
   margin-top: 10vh;
+}
+
+#order-details {
+  padding: 20px;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+  margin-top: 10vh;
+}
+
+.cap {
+  text-transform: capitalize;
+}
+
+.processing {
+  background-color: rgba(255, 166, 0, 0.5);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+}
+
+.accepted {
+  background-color: rgba(0, 128, 0, 0.5);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+}
+
+.recieved {
+  background-color: rgba(0, 0, 255, 0.5);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+}
+
+.fulfilled {
+  background-color: rgba(128, 128, 128, 0.5);
+  border-style: none !important;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5) !important;
+}
+
+.overdue {
+  box-shadow: 0 0rem 1.5rem rgb(255, 0, 0);
+  border-style: solid;
+  border-color: rgba(255, 0, 0, 0.5);
 }
 
 /*# sourceMappingURL=styles.css.map */
