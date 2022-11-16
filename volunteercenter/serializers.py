@@ -40,6 +40,8 @@ class deliverySerializer(serializers.ModelSerializer):
 
 
 class prescriptionSerializer(serializers.ModelSerializer):
+    prescription_client = UserSerializer()
+
     class Meta:
         model = Prescription
         fields = (
@@ -51,10 +53,13 @@ class prescriptionSerializer(serializers.ModelSerializer):
             "date_due",
             "status",
             "operator",
+            "prescription_client",
         )
 
 
 class welfareSerializer(serializers.ModelSerializer):
+    welfare_client = UserSerializer()
+
     class Meta:
         model = Welfare
         fields = (
@@ -65,4 +70,5 @@ class welfareSerializer(serializers.ModelSerializer):
             "date_due",
             "status",
             "operator",
+            "welfare_client",
         )

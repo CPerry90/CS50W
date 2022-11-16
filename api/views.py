@@ -71,7 +71,20 @@ def op_orders(request):
                     for _order in _orders:
                         serializer = deliverySerializer(_order)
                         orders.append(serializer.data)
-                return JsonResponse({"orders": orders}, safe=False)
+                    return JsonResponse({"orders": orders}, safe=False)
+                elif request.user.department == "prescription":
+                    _orders = Prescription.objects.all()
+                    for _order in _orders:
+                        serializer = prescriptionSerializer(_order)
+                        orders.append(serializer.data)
+                    return JsonResponse({"orders": orders}, safe=False)
+                elif request.user.department == "welfare":
+                    _orders = Welfare.objects.all()
+                    for _order in _orders:
+                        serializer = welfareSerializer(_order)
+                        orders.append(serializer.data)
+                    return JsonResponse({"orders": orders}, safe=False)
+
             else:
                 return render(request, "volunteercenter/login.html")
         else:
