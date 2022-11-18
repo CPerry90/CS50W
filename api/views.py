@@ -60,31 +60,70 @@ def user_search(request):
 @csrf_exempt
 @login_required
 def op_orders(request):
-    orders = []
+    recieved_open = []
+    processing_open = []
+    accepted_assigned = []
+    fulfilled_assigned = []
     if request.user.is_authenticated:
         if request.method == "POST":
             data = json.loads(request.body)
             token = data.get("token", "")
             if token == "1234":
                 if request.user.department == "delivery":
-                    _orders = Delivery.objects.all().order_by("-date_created")
-
-                    for _order in _orders:
-                        serializer = deliverySerializer(_order)
-                        orders.append(serializer.data)
-                    return JsonResponse({"orders": orders}, safe=False)
+                    _recieved_open = (
+                        Delivery.objects.filter(status="recieved")
+                        .exclude(operator=request.user.id)
+                        .order_by("-date_created")
+                    )
+                    _processing_open = (
+                        Delivery.objects.filter(status="processing")
+                        .exclude(operator=request.user.id)
+                        .order_by("-date_created")
+                    )
+                    _accepted_assigned = Delivery.objects.filter(
+                        status="accepted", operator=request.user.id
+                    ).order_by("-date_created")
+                    _fulfilled_assigned = Delivery.objects.filter(
+                        status="fulfilled", operator=request.user.id
+                    ).order_by("-date_created")
+                    for order in _fulfilled_assigned:
+                        serializer = deliverySerializer(order)
+                        fulfilled_assigned.append(serializer.data)
+                    for order in _accepted_assigned:
+                        serializer = deliverySerializer(order)
+                        accepted_assigned.append(serializer.data)
+                    for order in _recieved_open:
+                        serializer = deliverySerializer(order)
+                        recieved_open.append(serializer.data)
+                    for order in _processing_open:
+                        serializer = deliverySerializer(order)
+                        processing_open.append(serializer.data)
+                    return JsonResponse(
+                        {
+                            "recieved_open": recieved_open,
+                            "processing_open": processing_open,
+                            "accepted_assigned": accepted_assigned,
+                            "fulfilled_assigned": fulfilled_assigned,
+                        },
+                        safe=False,
+                    )
                 elif request.user.department == "prescription":
                     _orders = Prescription.objects.all().order_by("-date_created")
                     for _order in _orders:
                         serializer = prescriptionSerializer(_order)
                         orders.append(serializer.data)
-                    return JsonResponse({"orders": orders}, safe=False)
+                    return JsonResponse(
+                        {"orders": orders, "assigned": assigned}, safe=False
+                    )
                 elif request.user.department == "welfare":
                     _orders = Welfare.objects.all().order_by("-date_created")
                     for _order in _orders:
                         serializer = welfareSerializer(_order)
                         orders.append(serializer.data)
-                    return JsonResponse({"orders": orders}, safe=False)
+                    return JsonResponse(
+                        {"orders": orders, "assigned": assigned},
+                        safe=False,
+                    )
 
             else:
                 return render(request, "volunteercenter/login.html")
@@ -224,14 +263,20 @@ def order_status(request):
             if token == "1234":
                 if Delivery.objects.filter(order_number=id).exists():
                     order = Delivery.objects.get(order_number=id)
+                    operator = User.objects.get(pk=request.user.id)
+                    order.operator = operator
                     order.status = detail
                     order.save()
                 if Prescription.objects.filter(order_number=id).exists():
                     order = Prescription.objects.get(order_number=id)
+                    operator = User.objects.get(pk=request.user.id)
+                    order.operator = operator
                     order.status = detail
                     order.save()
                 if Welfare.objects.filter(order_number=id).exists():
                     order = Welfare.objects.get(order_number=id)
+                    operator = User.objects.get(pk=request.user.id)
+                    order.operator = operator
                     order.status = detail
                     order.save()
                 return JsonResponse({"message": detail}, safe=False)
