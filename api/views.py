@@ -108,20 +108,79 @@ def op_orders(request):
                         safe=False,
                     )
                 elif request.user.department == "prescription":
-                    _orders = Prescription.objects.all().order_by("-date_created")
-                    for _order in _orders:
-                        serializer = prescriptionSerializer(_order)
-                        orders.append(serializer.data)
+                    _recieved_open = (
+                        Prescription.objects.filter(status="recieved")
+                        .exclude(operator=request.user.id)
+                        .order_by("-date_created")
+                    )
+                    _processing_open = (
+                        Prescription.objects.filter(status="processing")
+                        .exclude(operator=request.user.id)
+                        .order_by("-date_created")
+                    )
+                    _accepted_assigned = Prescription.objects.filter(
+                        status="accepted", operator=request.user.id
+                    ).order_by("-date_created")
+                    _fulfilled_assigned = Prescription.objects.filter(
+                        status="fulfilled", operator=request.user.id
+                    ).order_by("-date_created")
+                    for order in _fulfilled_assigned:
+                        serializer = prescriptionSerializer(order)
+                        fulfilled_assigned.append(serializer.data)
+                    for order in _accepted_assigned:
+                        serializer = prescriptionSerializer(order)
+                        accepted_assigned.append(serializer.data)
+                    for order in _recieved_open:
+                        serializer = prescriptionSerializer(order)
+                        recieved_open.append(serializer.data)
+                    for order in _processing_open:
+                        serializer = prescriptionSerializer(order)
+                        processing_open.append(serializer.data)
                     return JsonResponse(
-                        {"orders": orders, "assigned": assigned}, safe=False
+                        {
+                            "recieved_open": recieved_open,
+                            "processing_open": processing_open,
+                            "accepted_assigned": accepted_assigned,
+                            "fulfilled_assigned": fulfilled_assigned,
+                        },
+                        safe=False,
                     )
                 elif request.user.department == "welfare":
-                    _orders = Welfare.objects.all().order_by("-date_created")
-                    for _order in _orders:
-                        serializer = welfareSerializer(_order)
-                        orders.append(serializer.data)
+                    _recieved_open = (
+                        Welfare.objects.filter(status="recieved")
+                        .exclude(operator=request.user.id)
+                        .order_by("-date_created")
+                    )
+                    _processing_open = (
+                        Welfare.objects.filter(status="processing")
+                        .exclude(operator=request.user.id)
+                        .order_by("-date_created")
+                    )
+                    _accepted_assigned = Welfare.objects.filter(
+                        status="accepted", operator=request.user.id
+                    ).order_by("-date_created")
+                    _fulfilled_assigned = Welfare.objects.filter(
+                        status="fulfilled", operator=request.user.id
+                    ).order_by("-date_created")
+                    for order in _fulfilled_assigned:
+                        serializer = welfareSerializer(order)
+                        fulfilled_assigned.append(serializer.data)
+                    for order in _accepted_assigned:
+                        serializer = welfareSerializer(order)
+                        accepted_assigned.append(serializer.data)
+                    for order in _recieved_open:
+                        serializer = welfareSerializer(order)
+                        recieved_open.append(serializer.data)
+                    for order in _processing_open:
+                        serializer = welfareSerializer(order)
+                        processing_open.append(serializer.data)
                     return JsonResponse(
-                        {"orders": orders, "assigned": assigned},
+                        {
+                            "recieved_open": recieved_open,
+                            "processing_open": processing_open,
+                            "accepted_assigned": accepted_assigned,
+                            "fulfilled_assigned": fulfilled_assigned,
+                        },
                         safe=False,
                     )
 

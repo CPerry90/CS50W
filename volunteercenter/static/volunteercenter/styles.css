@@ -30,6 +30,7 @@
   margin-top: 20px;
   border-radius: 1rem;
   cursor: pointer;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
 }
 #info .status {
   margin-left: auto;
