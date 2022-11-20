@@ -511,6 +511,30 @@ def order_update(request):
 
 @csrf_exempt
 @login_required
+def delete_order(request):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            data = json.loads(request.body)
+            token = data.get("token", "")
+            if token == "1234":
+                order_id = data.get("id", "")
+                if Delivery.objects.filter(order_number=order_id).exists():
+                    Delivery.objects.filter(order_number=order_id).delete()
+                if Prescription.objects.filter(order_number=order_id).exists():
+                    Prescription.objects.filter(order_number=order_id).delete()
+                if Welfare.objects.filter(order_number=order_id).exists():
+                    Welfare.objects.filter(order_number=order_id).delete()
+                return JsonResponse({"message": "Deleted"}, safe=False)
+            else:
+                return render(request, "volunteercenter/login.html")
+        else:
+            return render(request, "volunteercenter/login.html")
+    else:
+        return render(request, "volunteercenter/login.html")
+
+
+@csrf_exempt
+@login_required
 def pdf(request, order_number):
     buffer = io.BytesIO()
     p = canvas.Canvas(buffer)
