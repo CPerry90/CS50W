@@ -60,9 +60,16 @@ def logout_view(request):
 
 def register(request):
     if request.method == "POST":
-        username = request.POST["username"]
+        username = request.POST["first_name"]
+        firstName = request.POST["first_name"]
+        lastName = request.POST["last_name"]
         email = request.POST["email"]
-
+        phoneNumber = request.POST["phone_number"]
+        address_1 = request.POST["address_1"]
+        address_2 = request.POST["address_2"]
+        city = request.POST["city"]
+        county = request.POST["county"]
+        posctode = request.POST["postcode"]
         # Ensure password matches confirmation
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
@@ -76,6 +83,15 @@ def register(request):
         # Attempt to create new user
         try:
             user = User.objects.create_user(username, email, password)
+            user.first_name = firstName
+            user.last_name = lastName
+            user.phone_number = phoneNumber
+            user.address_1 = address_1
+            user.address_2 = address_2
+            user.city = city
+            user.county = county
+            user.postcode = posctode
+            user.user_type = "client"
             user.save()
         except IntegrityError as e:
             print(e)
