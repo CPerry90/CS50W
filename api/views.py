@@ -201,7 +201,10 @@ def client_details(request, id):
             data = json.loads(request.body)
             token = data.get("token", "")
             if token == "1234":
-                client = User.objects.get(pk=id)
+                if id == 0:
+                    client = request.user.id
+                else:
+                    client = User.objects.get(pk=id)
                 if Delivery.objects.filter(delivery_client=client).exists():
                     deliveryObjs = (
                         Delivery.objects.filter(delivery_client=client)

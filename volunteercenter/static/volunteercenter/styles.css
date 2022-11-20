@@ -64,7 +64,7 @@ input {
   margin-top: 10vh;
 }
 
-#order-details {
+.order-details {
   padding: 20px;
   border-radius: 1rem;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);

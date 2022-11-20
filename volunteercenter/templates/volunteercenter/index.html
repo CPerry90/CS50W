@@ -1,6 +1,15 @@
 {% extends "volunteercenter/layout.html" %} {% load static %} {% block body %}
 {{ request.user.id|json_script:"user_id" }}
-<div id="main"></div>
+<div id="main">
+    <div id="operator-main">
+        <div class="row client-row no-margin" id="">
+            <div class="col-md-3" id="client-details"></div>
+            <div class="col-md-6 mx-3" id="client-orders"></div>
+            <div class="col-md-6" id="order-details"></div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</div>
 {% endblock %} {% block script %}
-<script src="{% static 'volunteercenter/index.js' %}"></script>
+<script src="{% static 'volunteercenter/client.js' %}"></script>
 {% endblock %}
