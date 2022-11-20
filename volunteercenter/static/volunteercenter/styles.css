@@ -106,4 +106,8 @@ input {
   margin: 0;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 /*# sourceMappingURL=styles.css.map */
