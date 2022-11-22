@@ -1,28 +1,70 @@
 .navbar {
-  background-color: rgb(110, 200, 255);
+  background-color: #1a2d40;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
   position: sticky;
   top: 0;
   z-index: 1;
   opacity: 1;
+  color: white;
+}
+.navbar * {
+  color: white;
 }
 
 .hover {
-  color: rgb(110, 200, 255);
+  color: #1a2d40;
   transition: all 200ms linear;
 }
 .hover:hover {
   transition: all 200ms linear;
-  color: black;
+  color: rgb(0, 200, 15);
+  text-shadow: 4px 4px 4px rgba(33, 37, 41, 0.1411764706);
 }
 
 body {
   background-color: rgba(222, 235, 255, 0.368627451);
-  height: 100%;
+  min-height: 100vh;
+}
+
+.details .form-container {
+  width: 100%;
+  border-radius: 0rem;
+  box-shadow: 0 0rem 0rem rgba(0, 0, 0, 0.5);
+}
+
+.form-container {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+}
+.form-container h3 {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+.form-container input,
+.form-container textarea {
+  background-color: rgba(222, 235, 255, 0.368627451);
+}
+
+.fabutton {
+  background: none;
+  padding: 0px;
+  position: absolute;
+  bottom: 0;
+  border: none;
+  font-size: 1.5rem;
+  right: 0;
 }
 
 .header {
-  height: 80px;
+  height: 180px;
+  color: #1a2d40;
+}
+.header div h1 {
+  font-size: 4rem;
+  text-shadow: 4px 4px 4px rgba(33, 37, 41, 0.1411764706);
 }
 
 .search-header {
@@ -70,7 +112,8 @@ p {
 }
 #info:hover {
   transition: all 200ms linear;
-  background-color: rgb(110, 200, 255);
+  background-color: #1a2d40;
+  color: white;
 }
 
 .fa-trash-can,
@@ -90,11 +133,11 @@ p {
 }
 .download:hover {
   transition: all 100ms linear;
-  color: green;
+  color: rgb(0, 200, 15);
 }
 
 .delivery-form {
-  margin-top: 80px;
+  margin-top: 40px;
   width: 100%;
   min-height: 300px;
 }
@@ -106,6 +149,16 @@ p {
 
 #client-search {
   margin-top: 35vh;
+}
+
+.select-form {
+  background-color: rgba(222, 235, 255, 0.368627451);
+  color: rgb(0, 200, 15);
+  color: rgb(0, 200, 15);
+  text-align: center;
+  padding: 15px;
+  border-radius: 1rem;
+  box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.5);
 }
 
 input {
