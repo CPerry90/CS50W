@@ -2,29 +2,20 @@
 {{ request.user.id|json_script:"user_id" }}
 <div id="search-main">
     <div class="row no-margin search-row">
-        <div class="col-md-4 fade-in" id="user-details"></div>
-        <div class="col-md-4 fade-in" id="client-search"></div>
-        <div class="col-md-4 fade-in"></div>
+        <div class="col-md-3 fade-in" id="user-details"></div>
+        <div class="col-md-6 fade-in" id="client-search"></div>
+        <div class="col-md-3 fade-in"></div>
     </div>
 </div>
 
-<div id="client-main">
-    <div class="row no-margin client-row" id="">
-        <div class="col-md-4 fade-in"></div>
-        <div class="col-md-4 fade-in">
-            <div id="client"></div>
+<div id="main">
+    <div id="main">
+        <div class="row client-row no-margin" id="">
+            <div class="col-md-3" id="client-details"></div>
+            <div class="col-md-6" id="client-orders"></div>
+            <div class="col-md-6 fade-in" id="order-details"></div>
+            <div class="col-md-2"></div>
         </div>
-        <div class="col-md-4 fade-in"></div>
-    </div>
-</div>
-
-<div id="order-view">
-    <div class="row no-margin order-row" id="">
-        <div class="col-md-4 fade-in"></div>
-        <div class="col-md-4 fade-in">
-            <div id="order"></div>
-        </div>
-        <div class="col-md-4 fade-in"></div>
     </div>
 </div>
 {% endblock %} {% block script %}

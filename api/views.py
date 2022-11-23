@@ -23,8 +23,12 @@ def user_details(request):
         if request.method == "POST":
             data = json.loads(request.body)
             token = data.get("token", "")
+            id = data.get("id", "")
             if token == "1234":
-                user = User.objects.get(pk=request.user.id)
+                if id != "":
+                    user = User.objects.get(pk=id)
+                else:
+                    user = User.objects.get(pk=request.user.id)
                 serializer = UserSerializer(user)
                 return JsonResponse({"user": serializer.data}, safe=False)
             else:
