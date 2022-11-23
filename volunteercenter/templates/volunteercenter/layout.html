@@ -16,7 +16,7 @@
             name="viewport"
             content="width=device-width, initial-scale=1, minimum-scale=1" />
     </head>
-    <body>
+    <body id="body">
         <!--Mobile Navbar-->
         <nav class="navbar navbar-dark light-blue d-sm-none lighten-4">
             <a class="navbar-brand" href="#">Volunteer Center</a>
@@ -86,8 +86,15 @@
             </div>
         </div>
         <div class="body">{% block body %} {% endblock %}</div>
+        <div id="cta" class="chev-container d-none d-sm-none">
+            <div class="chevron"></div>
+            <div class="chevron"></div>
+            <div class="chevron"></div>
+        </div>
     </body>
     {% block script %} {% endblock %}
+    <script src="{% static 'volunteercenter/main.js' %}"></script>
+
     <script
         src="https://kit.fontawesome.com/c0e15e3145.js"
         crossorigin="anonymous"></script>

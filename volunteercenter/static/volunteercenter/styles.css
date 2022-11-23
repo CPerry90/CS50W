@@ -100,7 +100,6 @@ p {
   border-radius: 1rem;
   cursor: pointer;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
-  background-color: white;
   transition: all 200ms linear;
 }
 #info .status {
@@ -145,7 +144,7 @@ p {
 }
 
 #client-search {
-  margin-top: 35vh;
+  margin-top: 10vh;
 }
 
 .select-form {
@@ -392,6 +391,10 @@ select {
   margin-top: 10px;
 }
 
+.clicked {
+  color: rgb(0, 200, 15);
+}
+
 @media (min-width: 769px) {
   #client-orders {
     margin-left: 1rem !important;
@@ -423,6 +426,12 @@ select {
   .el {
     margin-top: 1rem;
   }
+  #info {
+    width: 100%;
+  }
+  #info .el {
+    margin-bottom: 1rem;
+  }
   #info .status {
     margin-top: 1rem;
     display: flex;
@@ -435,12 +444,28 @@ select {
   }
   .order-details {
     margin-top: 0;
+    margin-bottom: 10px;
   }
   .order-card-info {
     text-align: left;
   }
   .form-container h3 {
     margin-top: 50px;
+  }
+  .orders-container {
+    margin-top: 0vh;
+  }
+  .link {
+    color: rgb(0, 200, 15);
+  }
+  .search-header {
+    width: 90%;
+  }
+  #client-search {
+    margin-top: 0;
+  }
+  .ellipsis {
+    white-space: break-spaces !important;
   }
 }
 
