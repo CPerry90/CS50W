@@ -47,6 +47,8 @@ class User(AbstractUser):
     city = models.CharField(max_length=130, blank=True)
     county = models.CharField(max_length=130, blank=True)
     postcode = models.CharField(max_length=130, blank=True)
+    token_use = models.IntegerField(default=0)
+    token_det = models.IntegerField(default=0)
 
     def seralize(self):
         return {
@@ -60,9 +62,7 @@ class User(AbstractUser):
 
 
 class Delivery(models.Model):
-    order_number = models.IntegerField(
-        max_length=7, default=generate_order_number, blank=True
-    )
+    order_number = models.IntegerField(default=generate_order_number, blank=True)
     delivery_client = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="delivery_client"
     )
@@ -83,9 +83,7 @@ class Delivery(models.Model):
 
 
 class Prescription(models.Model):
-    order_number = models.IntegerField(
-        max_length=7, default=generate_order_number, blank=True
-    )
+    order_number = models.IntegerField(default=generate_order_number, blank=True)
     prescription_client = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="prescription_client"
     )
@@ -104,9 +102,7 @@ class Prescription(models.Model):
 
 
 class Welfare(models.Model):
-    order_number = models.IntegerField(
-        max_length=7, default=generate_order_number, blank=True
-    )
+    order_number = models.IntegerField(default=generate_order_number, blank=True)
     welfare_client = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="welfare_client"
     )
