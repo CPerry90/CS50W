@@ -14,6 +14,7 @@ import json
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
 from reportlab.platypus import Paragraph
+from django.db import IntegrityError
 
 
 @csrf_exempt
@@ -374,22 +375,41 @@ def newClient(request):
     if request.user.is_authenticated:
         if request.method == "POST":
             data = json.loads(request.body)
-            newUser = User(
-                username=data.get("first_name", ""),
-                first_name=data.get("first_name", ""),
-                last_name=data.get("last_name", ""),
-                email=data.get("email", ""),
-                phone_number=data.get("phone_number", ""),
-                address_1=data.get("address_1", ""),
-                address_2=data.get("address_2", ""),
-                city=data.get("city", ""),
-                county=data.get("county", ""),
-                postcode=data.get("postcode", ""),
-            )
-            newUser.save()
-            serializer = UserSerializer(newUser)
+            username = data.get("email", "")
+            first_name = data.get("first_name", "")
+            last_name = data.get("last_name", "")
+            email = data.get("email", "")
+            phone_number = data.get("phone_number", "")
+            address_1 = data.get("address_1", "")
+            address_2 = data.get("address_2", "")
+            city = data.get("city", "")
+            county = data.get("county", "")
+            postcode = data.get("postcode", "")
+            password = data.get("password", "")
+
+            try:
+                user = User.objects.create_user(username, email, password)
+                user.first_name = first_name
+                user.last_name = last_name
+                user.phone_number = phone_number
+                user.address_1 = address_1
+                user.address_2 = address_2
+                user.city = city
+                user.county = county
+                user.postcode = postcode
+                user.user_type = "client"
+                user.save()
+            except IntegrityError as e:
+                print(e)
+                return render(
+                    request,
+                    "volunteercenter/register.html",
+                    {"message": "Username address already taken."},
+                )
+            serializer = UserSerializer(user)
             return JsonResponse(
-                {"message": "Saved", "client": serializer.data}, status=201
+                {"message": "Saved", "client": serializer.data, "password": password},
+                status=201,
             )
         else:
             return render(request, "volunteercenter/login.html")

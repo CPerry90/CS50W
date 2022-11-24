@@ -18,6 +18,10 @@
   text-shadow: 4px 4px 4px rgba(33, 37, 41, 0.1411764706);
 }
 
+.tmp {
+  color: rgb(0, 200, 15);
+}
+
 body {
   background-color: rgba(222, 235, 255, 0.368627451);
   min-height: 100vh;
