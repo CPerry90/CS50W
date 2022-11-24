@@ -132,6 +132,16 @@ p {
   color: rgb(0, 200, 15);
 }
 
+#nav-1 *,
+#nav-2 * {
+  margin-left: 0 !important;
+  color: white;
+}
+#nav-1 i,
+#nav-2 i {
+  display: none;
+}
+
 .delivery-form {
   margin-top: 40px;
   width: 100%;
