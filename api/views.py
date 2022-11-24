@@ -261,9 +261,10 @@ def order_details(request, id):
             if token == "1234":
                 if Delivery.objects.filter(order_number=id).exists():
                     details = Delivery.objects.get(order_number=id)
-                    if details.status == "recieved":
-                        details.status = "processing"
-                        details.save()
+                    if request.user.user_type == "operator":
+                        if details.status == "recieved":
+                            details.status = "processing"
+                            details.save()
                     client = User.objects.get(username=details.delivery_client)
                     detailsSerializer = deliverySerializer(details)
                     clientSerializer = UserSerializer(client)
@@ -275,9 +276,10 @@ def order_details(request, id):
                         op = {"username": "Awaiting Assignment"}
                 if Prescription.objects.filter(order_number=id).exists():
                     details = Prescription.objects.get(order_number=id)
-                    if details.status == "recieved":
-                        details.status = "processing"
-                        details.save()
+                    if request.user.user_type == "operator":
+                        if details.status == "recieved":
+                            details.status = "processing"
+                            details.save()
                     client = User.objects.get(username=details.prescription_client)
                     detailsSerializer = prescriptionSerializer(details)
                     clientSerializer = UserSerializer(client)
@@ -289,9 +291,10 @@ def order_details(request, id):
                         op = {"username": "Awaiting Assignment"}
                 if Welfare.objects.filter(order_number=id).exists():
                     details = Welfare.objects.get(order_number=id)
-                    if details.status == "recieved":
-                        details.status = "processing"
-                        details.save()
+                    if request.user.user_type == "operator":
+                        if details.status == "recieved":
+                            details.status = "processing"
+                            details.save()
                     client = User.objects.get(username=details.welfare_client)
                     detailsSerializer = welfareSerializer(details)
                     clientSerializer = UserSerializer(client)

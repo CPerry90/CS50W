@@ -144,7 +144,7 @@ p {
 }
 
 #client-search {
-  margin-top: 10vh;
+  margin-top: 15vh;
 }
 
 .select-form {
@@ -395,6 +395,18 @@ select {
   color: rgb(0, 200, 15);
 }
 
+.new-client {
+  margin-top: -5vh;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  margin-bottom: 2rem;
+  background-color: white;
+  padding: 20px;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+}
+
 @media (min-width: 769px) {
   #client-orders {
     margin-left: 1rem !important;
@@ -421,7 +433,7 @@ select {
   }
   .header {
     height: auto;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
   }
   .el {
     margin-top: 1rem;
@@ -440,7 +452,7 @@ select {
     margin-right: 10px;
   }
   .hide-m {
-    display: none;
+    display: none !important;
   }
   .order-details {
     margin-top: 0;
@@ -448,6 +460,9 @@ select {
   }
   .order-card-info {
     text-align: left;
+  }
+  .form-container {
+    margin-bottom: 2rem;
   }
   .form-container h3 {
     margin-top: 50px;
@@ -466,6 +481,9 @@ select {
   }
   .ellipsis {
     white-space: break-spaces !important;
+  }
+  .new-client {
+    margin-top: 0vh;
   }
 }
 
