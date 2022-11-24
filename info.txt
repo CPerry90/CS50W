@@ -5,3 +5,16 @@ Welfare Operator = William
 Client = James
 Client = Jane
 Client = Lucy
+
+
+Testing - 
+
+CH 
+    Search for Client  
+    View orders
+    edit orders
+    delete orders
+    add orders
+    edit details
+
+    add new Client
