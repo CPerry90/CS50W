@@ -12,7 +12,6 @@ import {
 } from "./callhandler";
 import { NewClientDiv } from "./newClient";
 import { NewOrderButton } from "./clientDetails";
-import { cta } from "../main";
 
 export function CallHandlerDetails(props) {
     const [user, setUser] = React.useState([]);

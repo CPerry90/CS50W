@@ -56,7 +56,6 @@ export function NewClientDiv(props) {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data.client);
                 clientRoot.render(
                     <ClientDetails
                         client={data.client}

@@ -8,8 +8,6 @@ var todaysDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
 export class DeliveryForm extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.props.client.id);
-
         this.state = {
             value: "",
             date: todaysDate,

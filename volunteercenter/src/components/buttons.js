@@ -34,7 +34,6 @@ export function DetailsClose(props) {
 }
 
 export function SelectClose(props) {
-    console.log(props);
     function close() {
         props.root.unmount();
         document.getElementById("order-details").style.display = "none";

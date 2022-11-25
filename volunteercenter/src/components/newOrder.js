@@ -5,7 +5,6 @@ import { DeliveryForm, PrescForm } from "./forms";
 import { SelectClose } from "./buttons";
 
 export function NewOrderDiv(props) {
-    console.log(props);
     return (
         <div className="row client-row fade-in" id="">
             <div className="col-md-12" id="form">
