@@ -40,6 +40,8 @@ The Volunteer Center app handles everything else, such as Models, Serializers, a
 For react, I have used webpacks and babel to compile the React code into minified JS files which
 are stored in the /static directory and referenced in the layout.html template.
 
+I have also used Bootstrap and the @media tags in Sass/CSS to make the app mobile responsive.
+
 ## What's Contained In Each file
 
 -   `/api/`
@@ -112,6 +114,8 @@ After searching for a client, or creating a client, they are then taken to a vie
 Operators are presented with a view of their details, which they can edit, and a view of requests related to their department (Delivery, Prescription, Welfare). There are 2 requests views. The first is all orders in the operators department that are assigned to that operator. At the top are Accepted Orders, indicated in green. At the bottom are Fulfilled Orders, indicated in grey. On the second view is the “Open Orders” (new requests and requests that haven’t been accepted).
 
 On the assigned requests view the operator can view the details of the request, download a PDF, and complete the order, which marks it as Fulfilled. On the Open Orders view the operator can open new requests, indicated in purple, which then marks the request as processing. They can also open processing requests and choose to Accept them, which marks them as Accepted and assigns that request to the operator.
+
+On both views, all requests that are past their due date are hilghlighted with a red border.
 
 #### Clients
 
