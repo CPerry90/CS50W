@@ -47,8 +47,6 @@ class User(AbstractUser):
     city = models.CharField(max_length=130, blank=True)
     county = models.CharField(max_length=130, blank=True)
     postcode = models.CharField(max_length=130, blank=True)
-    token_use = models.IntegerField(default=0)
-    token_det = models.IntegerField(default=0)
 
     def seralize(self):
         return {

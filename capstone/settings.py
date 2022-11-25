@@ -34,7 +34,6 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     "rest_framework",
     "api",
-    "phonenumber_field",
     "volunteercenter",
     "django.contrib.admin",
     "django.contrib.auth",

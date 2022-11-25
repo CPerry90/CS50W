@@ -1,10 +1,12 @@
-Call handler = Kit
-Delivery Operator = Dave
-Prescription Operator = Peter
-Welfare Operator = William
-Client = James
-Client = Jane
-Client = Lucy
+Call handler = cmperry@live.co.uk
+
+Client = lucy@mail.com
+Client = james@mail.com
+client = luke@mail.com
+
+Del Operator = dave@mail.com
+Pres Operator = tom@mail.com
+Welf Operator = sarah@mail.com
 
 
 Testing - 
@@ -16,5 +18,17 @@ CH
     delete orders
     add orders
     edit details
-
     add new Client
+
+Operator
+    edit details
+    View orders
+    accept orders  
+    complete orders
+
+Client 
+    view orders
+    edit orders
+    delete orders
+    add orders
+    edit details

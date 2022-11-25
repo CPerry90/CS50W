@@ -21,10 +21,44 @@ class UserWelfareInline(admin.TabularInline):
 
 
 class UserAdmin(admin.ModelAdmin):
+    list_display = ["first_name", "last_name", "email", "user_type", "department"]
     inlines = [UserDeliveryInline, UserPrescriptionInline, UserWelfareInline]
 
 
+class DeliveryAdmin(admin.ModelAdmin):
+    list_display = [
+        "order_number",
+        "delivery_client",
+        "date_created",
+        "date_due",
+        "status",
+        "operator",
+    ]
+
+
+class PrescriptionAdmin(admin.ModelAdmin):
+    list_display = [
+        "order_number",
+        "prescription_client",
+        "date_created",
+        "date_due",
+        "status",
+        "operator",
+    ]
+
+
+class WelfareAdmin(admin.ModelAdmin):
+    list_display = [
+        "order_number",
+        "welfare_client",
+        "date_created",
+        "date_due",
+        "status",
+        "operator",
+    ]
+
+
 admin.site.register(User, UserAdmin)
-admin.site.register(Delivery)
-admin.site.register(Prescription)
-admin.site.register(Welfare)
+admin.site.register(Delivery, DeliveryAdmin)
+admin.site.register(Prescription, PrescriptionAdmin)
+admin.site.register(Welfare, WelfareAdmin)

@@ -384,7 +384,7 @@ def newClient(request):
             address_2 = data.get("address_2", "")
             city = data.get("city", "")
             county = data.get("county", "")
-            postcode = data.get("postcode", "")
+            postcode = data.get("postcode", "").upper()
             password = data.get("password", "")
 
             try:

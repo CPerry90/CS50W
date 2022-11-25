@@ -1,0 +1,501 @@
+$top: 80px;
+$green: rgb(0 200 15);
+$main: #1a2d40;
+$secondary: white;
+$highlight: #deebff5e;
+
+.navbar {
+    background-color: $main;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    opacity: 1;
+    color: white;
+}
+
+.hover {
+    color: $main;
+    transition: all 200ms linear;
+    &:hover {
+        transition: all 200ms linear;
+        color: $green;
+        text-shadow: 4px 4px 4px #21252924;
+    }
+}
+.tmp {
+    color: $green;
+}
+body {
+    background-color: $highlight;
+    min-height: 100vh;
+}
+.details {
+    .form-container {
+        width: 100%;
+        border-radius: 0rem;
+        box-shadow: 0 0rem 0rem rgba(0, 0, 0, 0.5);
+    }
+}
+.form-container {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+    h3 {
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    input,
+    textarea {
+        background-color: $highlight;
+    }
+}
+.fabutton {
+    background: none;
+    padding: 0px;
+    position: absolute;
+    bottom: 0;
+    border: none;
+    font-size: 1.5rem;
+    right: 0;
+}
+.header {
+    height: 180px;
+    color: $main;
+    div {
+        h1 {
+            font-size: 4rem;
+            text-shadow: 4px 4px 4px #21252924;
+        }
+    }
+}
+
+.search-header {
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.client-details-container {
+    background-color: $secondary;
+    position: sticky;
+    top: 10vh;
+    margin-top: 10vh;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    border-radius: 1rem;
+    transition: all 200ms linear;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+}
+
+p {
+    margin-bottom: 0;
+}
+
+.el {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#info {
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 1rem;
+    cursor: pointer;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+    //background-color: $secondary;
+    transition: all 200ms linear;
+    .status {
+        margin-left: auto;
+        margin-right: 15%;
+    }
+    &:hover {
+        transition: all 200ms linear;
+        background-color: $main;
+        color: white;
+    }
+}
+
+.fa-trash-can,
+.fa-circle-xmark {
+    transition: all 100ms linear;
+    color: black;
+    &:hover {
+        transition: all 100ms linear;
+        color: red;
+    }
+}
+
+.download {
+    transition: all 100ms linear;
+    color: black;
+    &:hover {
+        transition: all 100ms linear;
+        color: $green;
+    }
+}
+
+#nav-1,
+#nav-2 {
+    * {
+        margin-left: 0 !important;
+        color: white;
+    }
+    i {
+        display: none;
+    }
+}
+
+.delivery-form {
+    margin-top: 40px;
+    width: 100%;
+    min-height: 300px;
+}
+
+.no-margin {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+#client-search {
+    margin-top: 15vh;
+}
+.select-form {
+    background-color: $highlight;
+    color: $green;
+    color: rgb(0, 200, 15);
+    text-align: center;
+    padding: 15px;
+    border-radius: 1rem;
+    box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.5);
+}
+
+input {
+    margin-top: 10px;
+}
+.orders-container {
+    margin-top: 10vh;
+}
+.order-details {
+    background-color: $secondary;
+    padding: 20px;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+    margin-top: 10vh;
+}
+.cap {
+    text-transform: capitalize;
+}
+.processing {
+    background-color: rgba(255, 166, 0, 0.5);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+}
+.accepted {
+    background-color: rgba(0, 128, 0, 0.5);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+}
+.recieved {
+    background-color: rgba(0, 0, 255, 0.5);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+}
+.fulfilled {
+    background-color: rgba(128, 128, 128, 0.5);
+    border-style: none !important;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5) !important;
+}
+.overdue {
+    box-shadow: 0 0rem 1.5rem rgba(255, 0, 0, 1);
+    border-style: solid;
+    border-color: rgba(255, 0, 0, 0.5);
+}
+.m-0 {
+    margin: 0;
+}
+.pointer {
+    cursor: pointer;
+}
+
+.fade-in {
+    animation: fadeIn ease 1s;
+    -webkit-animation: fadeIn ease 1s;
+    -moz-animation: fadeIn ease 1s;
+    -o-animation: fadeIn ease 1s;
+    -ms-animation: fadeIn ease 1s;
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-o-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-ms-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.fade-out {
+    animation: fadeOut ease 1s;
+    -webkit-animation: fadeOut ease 1s;
+    -moz-animation: fadeOut ease 1s;
+    -o-animation: fadeOut ease 1s;
+    -ms-animation: fadeOut ease 1s;
+    animation-fill-mode: forwards;
+}
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@-o-keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@-ms-keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.chev-container {
+    position: sticky;
+    bottom: 12vh;
+    margin-left: 85vw;
+}
+
+.chevron {
+    position: absolute;
+    width: 28px;
+    height: 8px;
+    opacity: 0;
+    transform: scale3d(0.5, 0.5, 0.5);
+    animation: move 3s ease-out infinite;
+}
+
+.chevron:first-child {
+    animation: move 3s ease-out 1s infinite;
+}
+
+.chevron:nth-child(2) {
+    animation: move 3s ease-out 2s infinite;
+}
+
+.chevron:before,
+.chevron:after {
+    content: " ";
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 51%;
+    background: $main;
+}
+
+.chevron:before {
+    left: 0;
+    transform: skew(0deg, 30deg);
+}
+
+.chevron:after {
+    right: 0;
+    width: 50%;
+    transform: skew(0deg, -30deg);
+}
+@keyframes move {
+    25% {
+        opacity: 1;
+    }
+    33% {
+        opacity: 1;
+        transform: translateY(30px);
+    }
+    67% {
+        opacity: 1;
+        transform: translateY(40px);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(55px) scale3d(0.5, 0.5, 0.5);
+    }
+}
+.order-card-info {
+    text-align: right;
+}
+select {
+    width: 100%;
+    border-radius: 0.25em;
+    padding: 0.25em 0.5em;
+    font-size: 1.25rem;
+    cursor: pointer;
+    line-height: 1.1;
+    background-color: #fff;
+    background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+}
+.savebutton {
+    background: none;
+    border: none;
+    margin-top: 10px;
+}
+.clicked {
+    color: $green;
+}
+.new-client {
+    margin-top: -5vh;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    margin-bottom: 2rem;
+    background-color: white;
+    padding: 20px;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 50%);
+}
+// Mobile Styling
+
+@media (min-width: 769px) {
+    #client-orders {
+        margin-left: 1rem !important;
+        margin-right: 1rem !important;
+    }
+}
+
+@media (max-width: 769px) {
+    .client-details-container {
+        width: 80%;
+        color: black !important;
+        background-color: white;
+        padding: 20px;
+        margin: auto;
+        border-radius: 1rem;
+        transition: all 200ms linear;
+        box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 50%);
+        margin-bottom: 3rem;
+        input {
+            width: 100%;
+        }
+    }
+    .hover {
+        text-align: center;
+    }
+    .header {
+        height: auto;
+        margin-bottom: 1rem;
+    }
+    .el {
+        margin-top: 1rem;
+    }
+    #info {
+        .el {
+            margin-bottom: 1rem;
+        }
+        width: 100%;
+        .status {
+            margin-top: 1rem;
+            display: flex;
+            h5 {
+                margin-right: 10px;
+            }
+        }
+    }
+    .hide-m {
+        display: none !important;
+    }
+    .order-details {
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+    .order-card-info {
+        text-align: left;
+    }
+    .form-container {
+        margin-bottom: 2rem;
+        h3 {
+            margin-top: 50px;
+        }
+    }
+    .orders-container {
+        margin-top: 0vh;
+    }
+    .link {
+        color: $green;
+    }
+    .search-header {
+        width: 90%;
+    }
+    #client-search {
+        margin-top: 0;
+    }
+    .ellipsis {
+        white-space: break-spaces !important;
+    }
+    .new-client {
+        margin-top: 0vh;
+    }
+}

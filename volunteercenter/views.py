@@ -69,7 +69,7 @@ def register(request):
         address_2 = request.POST["address_2"]
         city = request.POST["city"]
         county = request.POST["county"]
-        posctode = request.POST["postcode"]
+        posctode = request.POST["postcode"].upper()
         # Ensure password matches confirmation
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
