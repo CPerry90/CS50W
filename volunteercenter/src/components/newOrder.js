@@ -45,6 +45,7 @@ class TypeSelect extends React.Component {
         this.props.root.unmount();
         orderListRoot.render(<Orders isShow="False" />);
         document.getElementById("client-orders").style.display = "none";
+        document.getElementById("order-details").style.display = "block";
         document.getElementById("client-details").classList.add("hide-m");
         OrderForm(event.target.value, this.props.client);
         event.preventDefault();

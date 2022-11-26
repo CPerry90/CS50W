@@ -1,18 +1,23 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from random import randrange
 
 
 def generate_order_number():
-    while True:
-        code = randrange(10000, 20000)
-        if (
-            Delivery.objects.filter(order_number=code).count() == 0
-            and Prescription.objects.filter(order_number=code).count() == 0
-            and Welfare.objects.filter(order_number=code).count() == 0
-        ):
-            break
-    return code
+    order_number_list = [0]
+    highest = 0
+    deliveries = Delivery.objects.all()
+    prescriptions = Prescription.objects.all()
+    welfares = Welfare.objects.all()
+    for order in deliveries:
+        order_number_list.append(order.order_number)
+    for order in prescriptions:
+        order_number_list.append(order.order_number)
+    for order in welfares:
+        order_number_list.append(order.order_number)
+    order_number_list.sort()
+    highest = order_number_list[-1]
+
+    return highest + 1
 
 
 DEPARTMENT_CHOICES = (
@@ -34,6 +39,7 @@ STATUS = (
     ("processing", "PROCESSING"),
     ("accepted", "ACCEPTED"),
     ("fulfilled", "FULFILLED"),
+    ("archived", "ARCHIVED"),
 )
 # User model with user types and departments
 class User(AbstractUser):

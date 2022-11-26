@@ -197,6 +197,7 @@ def client_details(request, id):
             if Delivery.objects.filter(delivery_client=client).exists():
                 deliveryObjs = (
                     Delivery.objects.filter(delivery_client=client)
+                    .exclude(status="archived")
                     .order_by("-date_created")
                     .all()
                 )
@@ -208,6 +209,7 @@ def client_details(request, id):
             if Prescription.objects.filter(prescription_client=client).exists():
                 prescObjs = (
                     Prescription.objects.filter(prescription_client=client)
+                    .exclude(status="archived")
                     .order_by("-date_created")
                     .all()
                 )
@@ -219,6 +221,7 @@ def client_details(request, id):
             if Welfare.objects.filter(welfare_client=client).exists():
                 welfareObjs = (
                     Welfare.objects.filter(welfare_client=client)
+                    .exclude(status="archived")
                     .order_by("-date_created")
                     .all()
                 )
@@ -495,11 +498,17 @@ def delete_order(request):
             data = json.loads(request.body)
             order_id = data.get("id", "")
             if Delivery.objects.filter(order_number=order_id).exists():
-                Delivery.objects.filter(order_number=order_id).delete()
+                order = Delivery.objects.get(order_number=order_id)
+                order.status = "archived"
+                order.save()
             if Prescription.objects.filter(order_number=order_id).exists():
-                Prescription.objects.filter(order_number=order_id).delete()
+                order = Prescription.objects.get(order_number=order_id)
+                order.status = "archived"
+                order.save()
             if Welfare.objects.filter(order_number=order_id).exists():
-                Welfare.objects.filter(order_number=order_id).delete()
+                order = Welfare.objects.get(order_number=order_id)
+                order.status = "archived"
+                order.save()
             return JsonResponse({"message": "Deleted"}, safe=False)
         else:
             return render(request, "volunteercenter/login.html")
