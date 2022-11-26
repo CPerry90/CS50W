@@ -1,3 +1,31 @@
+.loader {
+  margin-left: auto;
+  margin-right: auto;
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.loader-container {
+  padding-top: 30vh;
+  background-color: #deebff;
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+}
+
 .navbar {
   background-color: #1a2d40;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
@@ -218,12 +246,39 @@ input {
   border-color: rgba(255, 0, 0, 0.5);
 }
 
+.green {
+  color: rgb(0, 128, 0);
+}
+
+.grey {
+  color: rgb(128, 128, 128);
+}
+
+.purple {
+  color: rgb(0, 0, 255);
+}
+
+.yellow {
+  color: rgb(255, 166, 0);
+}
+
 .m-0 {
   margin: 0;
 }
 
 .pointer {
   cursor: pointer;
+}
+
+.info-pannel {
+  margin-top: 10vh;
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+  padding: 15px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .fade-in {
@@ -287,8 +342,15 @@ input {
   0% {
     opacity: 1;
   }
+  50% {
+    opacity: 1;
+  }
+  99% {
+    z-index: 1;
+  }
   100% {
     opacity: 0;
+    z-index: 0;
   }
 }
 @-moz-keyframes fadeOut {
@@ -421,13 +483,11 @@ select {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
 }
 
-@media (min-width: 769px) {
-  #client-orders {
-    margin-left: 1rem !important;
-    margin-right: 1rem !important;
-  }
-}
 @media (max-width: 769px) {
+  .info-pannel {
+    width: 100%;
+    margin-top: 0vh;
+  }
   .client-details-container {
     width: 80%;
     color: black !important;
@@ -492,6 +552,7 @@ select {
   }
   #client-search {
     margin-top: 0;
+    margin-bottom: 6vh;
   }
   .ellipsis {
     white-space: break-spaces !important;

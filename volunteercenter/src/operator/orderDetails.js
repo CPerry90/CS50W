@@ -7,6 +7,7 @@ import { cta } from "../main";
 let root = createRoot(document.getElementById("order-details"));
 export function OrderDetails(props, isEdit, isAssigned) {
     cta();
+    document.getElementById("info-pannel").classList.add("hide-m");
     document.getElementById("operator-details").classList.add("hide-m");
     orderRoot.render(
         <OrderList isEdit="False" isAssigned="False" isShow="False" />
@@ -131,6 +132,7 @@ function DetailsClose(props) {
             document.getElementById("operator-orders").style.display = "none";
         }
         document.getElementById("operator-details").classList.remove("hide-m");
+        document.getElementById("info-pannel").classList.remove("hide-m");
     }
     return (
         <i
@@ -201,6 +203,10 @@ function OrderView(props) {
                     <p>
                         <strong>Created on: </strong>
                         {props.data.details.date_created}
+                    </p>
+                    <p>
+                        <strong>Due: </strong>
+                        {props.data.details.date_due}
                     </p>
                 </div>
                 <div className="col-md-6 mt-3">

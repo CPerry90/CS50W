@@ -186,7 +186,7 @@ export function ListView(props) {
                             </>
                         );
                     } else {
-                        return <NoOrder text="No Orders" />;
+                        return <NoOrder text="" />;
                     }
                 }
             })()}

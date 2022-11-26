@@ -1,3 +1,13 @@
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("loader").classList.add("fade-out");
+    setTimeout(fadeIn, 1000);
+});
+
+function fadeIn() {
+    document.getElementById("main-view").classList.replace("d-none", "d-block");
+    document.getElementById("main-view").classList.add("fade-in");
+}
+
 window.onscroll = () => {
     if (window.scrollY > 50) {
         document.getElementById("cta").classList.replace("fade-in", "fade-out");

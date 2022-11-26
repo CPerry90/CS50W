@@ -9,6 +9,7 @@ import {
     root,
     navRoot1,
     navRoot2,
+    userRoot,
 } from "./callhandler";
 import { NewClientDiv } from "./newClient";
 import { NewOrderButton } from "./clientDetails";
@@ -36,7 +37,7 @@ export function CallHandlerDetails(props) {
     }, []);
     return (
         <>
-            <div className="client-details-container">
+            <div className="client-details-container fade-in">
                 <div className="row no-margin">
                     <h2 className="mr-2">
                         {user.last_name}, {user.first_name}

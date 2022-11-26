@@ -13,6 +13,7 @@ import io
 import json
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
+from reportlab.lib.utils import ImageReader
 from reportlab.platypus import Paragraph
 from django.db import IntegrityError
 
@@ -516,6 +517,7 @@ def pdf(request, order_number):
         created_at = details.date_created.strftime("%d %B, %Y")
         due_at = details.date_due.strftime("%d %B, %Y")
         client = User.objects.get(username=details.delivery_client)
+        operator = User.objects.get(username=details.operator)
         body = details.order
         other = ""
     elif Prescription.objects.filter(order_number=order_number).exists():
@@ -532,6 +534,8 @@ def pdf(request, order_number):
         client = User.objects.get(username=details.welfare_client)
         body = details.notes
         other = ""
+    logo = ImageReader("./volunteercenter/static/logo.png")
+    p.drawImage(logo, 400, 600, width=120, preserveAspectRatio=True, mask="auto")
     p.drawString(50, 790, f"Request no. {order_number}")
     p.drawString(50, 755, f"{client.last_name}, {client.first_name}")
     p.drawString(50, 740, f"{client.address_1}")
@@ -556,11 +560,11 @@ def pdf(request, order_number):
     paragraph.wrapOn(p, 800, 600)
     paragraph.drawOn(p, 50, 575)
     botLine = [(50, 100, 540, 100)]
-    p.drawString(50, 80, f"Call Handler: {request.user.username}")
-    p.drawString(50, 65, f"Created: {created_at}")
-    p.drawString(50, 50, f"Due on: {due_at}")
-    p.drawString(400, 80, f"Assigned to: {details.operator}")
-    p.drawString(400, 65, f"Status: {details.status}")
+    p.drawString(50, 80, f"Created: {created_at}")
+    p.drawString(50, 65, f"Due on: {due_at}")
+    p.drawString(400, 80, f"Assigned to: {operator.first_name} {operator.last_name}")
+    p.drawString(400, 65, f"Phone: {operator.phone_number}")
+    p.drawString(400, 50, f"Status: {details.status.capitalize()}")
     p.lines(botLine)
     p.showPage()
     p.save()

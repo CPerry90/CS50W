@@ -8,13 +8,14 @@ import { cta } from "../main";
 export function OrderDetails(props, isEdit) {
     cta();
     document.getElementById("client-details").classList.add("hide-m");
-    document.getElementById("client-orders").style.display = "none";
+    document.getElementById("info-pannel").classList.add("hide-m");
     orderListRoot.render(<Orders isShow="False" />);
     fetch(`api/order_details/${props}`, {
         method: "POST",
     })
         .then((response) => response.json())
         .then((data) => {
+            document.getElementById("client-orders").style.display = "none";
             detailsRoot.render(
                 <OrderView order={props} data={data} isEdit={isEdit} />
             );
@@ -90,6 +91,10 @@ function DeleteOrder(props) {
         })
             .then((response) => response.json())
             .then((data) => {
+                document
+                    .getElementById("info-pannel")
+                    .classList.remove("hide-m");
+
                 document
                     .getElementById("client-details")
                     .classList.remove("hide-m");

@@ -21,6 +21,7 @@ function Empty() {
 export function DetailsClose(props) {
     function close() {
         detailsRoot.render(<Empty />);
+        document.getElementById("info-pannel").classList.remove("hide-m");
         document.getElementById("client-details").classList.remove("hide-m");
         document.getElementById("order-details").style.display = "none";
         document.getElementById("client-orders").style.display = "none";

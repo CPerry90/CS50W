@@ -17,7 +17,7 @@ export function OperatorDetails(props) {
     }, []);
     return (
         <>
-            <div className="client-details-container">
+            <div className="client-details-container fade-in">
                 <div className="row no-margin">
                     <h2 className="mr-2">
                         {op.last_name}, {op.first_name}
@@ -88,7 +88,7 @@ function EditUserDiv(props) {
         })
             .then((response) => response.json())
             .then((data) => {
-                location.reload();
+                operatorRoot.render(<OperatorDetails />);
             });
     }
     return (

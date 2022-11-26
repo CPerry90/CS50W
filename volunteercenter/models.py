@@ -65,7 +65,7 @@ class Delivery(models.Model):
         User, on_delete=models.CASCADE, related_name="delivery_client"
     )
     order = models.TextField(blank=True, max_length=1000)
-    date_created = models.DateField(auto_now_add=True)
+    date_created = models.DateTimeField(auto_now_add=True)
     date_due = models.DateField(blank=True, null=True)
     operator = models.ForeignKey(
         User,
@@ -87,7 +87,7 @@ class Prescription(models.Model):
     )
     order_details = models.TextField(blank=True, max_length=1000)
     pharmacy = models.TextField(blank=True, max_length=1000)
-    date_created = models.DateField(auto_now_add=True)
+    date_created = models.DateTimeField(auto_now_add=True)
     date_due = models.DateField(blank=True, null=True)
     operator = models.ForeignKey(
         User,
@@ -105,7 +105,7 @@ class Welfare(models.Model):
         User, on_delete=models.CASCADE, related_name="welfare_client"
     )
     notes = models.TextField(blank=True, max_length=1000)
-    date_created = models.DateField(auto_now_add=True)
+    date_created = models.DateTimeField(auto_now_add=True)
     date_due = models.DateField(blank=True, null=True)
     operator = models.ForeignKey(
         User,

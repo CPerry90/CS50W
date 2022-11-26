@@ -1,13 +1,47 @@
 {% extends "volunteercenter/layout.html" %} {% load static %} {% block body %}
 {{ request.user.id|json_script:"user_id" }}
 
-<div id="operator-main">
-    <div class="row operator-row no-margin" id="">
-        <div class="col-md-3 fade-in" id="operator-details"></div>
-        <div class="col-md-6 fade-in" id="operator-orders"></div>
-        <div class="col-md-6 fade-in" id="available-orders"></div>
-        <div class="col-md-6 fade-in" id="order-details"></div>
-        <div class="col-md-2"></div>
+<div class="d-none" id="main-view">
+    <div id="operator-main">
+        <div class="row operator-row no-margin" id="">
+            <div class="col-md-3 fade-in" id="operator-details"></div>
+            <div class="col-md-6 fade-in" id="operator-orders"></div>
+            <div class="col-md-6 fade-in" id="available-orders"></div>
+            <div class="col-md-6 fade-in" id="order-details"></div>
+            <div class="col-md-3 fade-in" id="info-pannel">
+                <div class="info-pannel mb-3">
+                    <h3 class="text-center">Instructions</h3>
+                    <hr />
+                    <div class="container">
+                        <p>
+                            Here, you can view your assigned orders and
+                            available orders.
+                        </p>
+                        <br />
+                        <p class="green">Accepted Orders are Green.</p>
+                        <p class="grey">Fulfilled Orders are Grey.</p>
+                        <p class="purple">New Orders are Purple.</p>
+                        <p class="yellow">Processing orders are Yellow.</p>
+                        <br />
+                        <p>
+                            When viewing new or processing orders, you can
+                            choose to accept the order, which will add it to
+                            your assigned orders.
+                        </p>
+                        <br />
+                        <p>
+                            When view your assigned orders, you can choose to
+                            complete the order, if the order is complete.
+                        </p>
+                        <br />
+                        <p>
+                            On any order view, you can download a PDF of the
+                            order to print.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %} {% block script %}

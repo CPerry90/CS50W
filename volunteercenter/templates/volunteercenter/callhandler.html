@@ -1,21 +1,69 @@
 {% extends "volunteercenter/layout.html" %} {% load static %} {% block body %}
 {{ request.user.id|json_script:"user_id" }}
-<div id="search-main">
-    <div class="row no-margin search-row">
-        <div class="col-md-3"></div>
-        <div class="col-md-2 d-none" id="user-details"></div>
-        <div class="col-md-4 fade-in" id="client-search"></div>
-        <div class="col-md-3 fade-in"></div>
+<div class="d-none" id="main-view">
+    <div id="search-main">
+        <div class="row no-margin search-row">
+            <div class="col-md-2"></div>
+            <div class="col-md-2 d-none" id="user-details"></div>
+            <div class="col-md-4 fade-in" id="client-search"></div>
+            <div class="col-md-3 fade-in" id="instruction-pannel">
+                <div class="info-pannel mb-3">
+                    <h3 class="text-center">Instructions</h3>
+                    <hr />
+                    <div class="container">
+                        <p>
+                            Use the search bar to look up clients.<br />
+                            <br />
+                            You can use their first name, last name, or
+                            postcode.<br />
+                            <br />
+                            If this is their first call, you can click the 'New
+                            Client' option to create an account for them. A
+                            temporary password will be set, which you can advise
+                            them of when applicable.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-
-<div id="main">
     <div id="main">
         <div class="row client-row no-margin" id="">
             <div class="col-md-3" id="client-details"></div>
             <div class="col-md-6 fade-in" id="client-orders"></div>
             <div class="col-md-6 fade-in" id="order-details"></div>
-            <div class="col-md-2"></div>
+            <div class="col-md-3 fade-in" id="info-pannel">
+                <div class="info-pannel mb-3">
+                    <h3 class="text-center">Instructions</h3>
+                    <hr />
+                    <div class="container">
+                        <p>
+                            Here, you can view the orders from the seleceted
+                            client.
+                        </p>
+                        <br />
+                        <p class="green">Accepted Orders are Green.</p>
+                        <p class="grey">Fulfilled Orders are Grey.</p>
+                        <p class="purple">New Orders are Purple.</p>
+                        <p class="yellow">Processing orders are Yellow.</p>
+                        <br />
+                        <p>
+                            When viewing an order, you can edit or delete the
+                            order.
+                        </p>
+                        <br />
+                        <p>
+                            You can also edit the clients details if they need
+                            updating.
+                        </p>
+                        <br />
+                        <p>
+                            On any order view, you can download a PDF of the
+                            order to print.
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

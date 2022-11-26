@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { createRoot } from "react-dom/client";
+import { CallHandlerDetails } from "./clientSearch";
 import { clientRoot, userRoot } from "./callhandler";
 import { NewOrderDiv } from "../components/newOrder";
 import { Exit } from "../components/buttons";
@@ -129,7 +130,7 @@ function EditUserDiv(props) {
             .then((response) => response.json())
             .then((data) => {
                 if (props.ch == "True") {
-                    window.location.reload();
+                    userRoot.render(<CallHandlerDetails ch="True" />);
                 } else {
                     clientRoot.render(<ClientDetails client={data.client} />);
                 }

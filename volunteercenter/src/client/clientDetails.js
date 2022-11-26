@@ -19,7 +19,7 @@ export function ClientDetails(props) {
     }, []);
     return (
         <>
-            <div className="client-details-container">
+            <div className="client-details-container fade-in">
                 <div className="row no-margin">
                     <h2 className="mr-2">
                         {client.last_name}, {client.first_name}
@@ -107,7 +107,7 @@ function EditUserDiv(props) {
         })
             .then((response) => response.json())
             .then((data) => {
-                location.reload();
+                clientRoot.render(<ClientDetails />);
             });
     }
     return (
