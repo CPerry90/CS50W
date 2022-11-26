@@ -4,6 +4,7 @@ import { Orders } from "./clientOrders";
 import { EditDeliveryForm } from "./editForm";
 import { DetailsClose } from "./buttons";
 import { cta } from "../main";
+import { DeleteModal } from "../components/modal";
 
 export function OrderDetails(props, isEdit) {
     cta();
@@ -80,7 +81,7 @@ function EditOrder(props) {
 function Empty() {
     return <></>;
 }
-function DeleteOrder(props) {
+export function DeleteOrder(props) {
     function deleteOrder() {
         detailsRoot.render(<Empty />);
         fetch(`api/delete_order`, {
@@ -109,7 +110,7 @@ function DeleteOrder(props) {
     return (
         <i
             onClick={deleteOrder}
-            className="fa-regular fa-2x fa-trash-can pointer"></i>
+            className="ml-2 green fa-solid fa-2x fa-check pointer"></i>
     );
 }
 
@@ -244,7 +245,7 @@ function OrderView(props) {
             <div className="row mt-3">
                 <div className="col-md-12">
                     <Button order={props.order} />
-                    <DeleteOrder
+                    <DeleteModal
                         order={props.order}
                         user={props.data.client.id}
                     />

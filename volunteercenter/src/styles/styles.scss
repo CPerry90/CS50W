@@ -4,11 +4,36 @@ $main: #1a2d40;
 $secondary: white;
 $highlight: #deebff5e;
 
+.Modal {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    right: 40px;
+    bottom: 40px;
+    padding: 2rem;
+    border: none;
+    border-radius: 1rem;
+    background-color: white;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(102, 102, 102, 0.75);
+}
+
 .loader {
     margin-left: auto;
     margin-right: auto;
     border: 10px solid #f3f3f3;
-    //border-top: 10px solid #1a2d40;
     border-radius: 50%;
     width: 150px;
     height: 150px;
@@ -247,6 +272,9 @@ input {
     box-shadow: 0 0rem 1.5rem rgba(255, 0, 0, 1);
     border-style: solid;
     border-color: rgba(255, 0, 0, 0.5);
+}
+.red {
+    color: red;
 }
 .green {
     color: rgba(0, 128, 0, 1);
