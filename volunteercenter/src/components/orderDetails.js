@@ -115,6 +115,7 @@ export function DeleteOrder(props) {
 }
 
 function OrderView(props) {
+    console.log(props);
     return (
         <div className="order-details">
             <div className="row">
@@ -237,8 +238,7 @@ function OrderView(props) {
                 <div className="col-md-6 order-card-info">
                     <p>
                         <strong>Assigned to: </strong>
-                        {props.data.operator.first_name}{" "}
-                        {props.data.operator.last_name}
+                        {props.data.operator.username}
                     </p>
                 </div>
             </div>

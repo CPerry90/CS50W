@@ -177,8 +177,7 @@ function OrderView(props) {
                         {props.data.details.date_due}
                         <br></br>
                         <strong>Assigned To: </strong>
-                        {props.data.operator.first_name}{" "}
-                        {props.data.operator.last_name}
+                        {props.data.operator.username}
                         <br></br>
                         <strong>Status: </strong>
                         {props.data.details.status}

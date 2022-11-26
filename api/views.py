@@ -253,8 +253,9 @@ def order_details(request, id):
                 clientSerializer = UserSerializer(client)
                 if User.objects.filter(username=details.operator).exists():
                     operator = User.objects.get(username=details.operator)
-                    operatorSerializer = UserSerializer(operator)
-                    op = operatorSerializer.data
+                    op = {
+                        "username": str(operator.first_name + " " + operator.last_name)
+                    }
                 else:
                     op = {"username": "Awaiting Assignment"}
             if Prescription.objects.filter(order_number=id).exists():
@@ -268,8 +269,9 @@ def order_details(request, id):
                 clientSerializer = UserSerializer(client)
                 if User.objects.filter(username=details.operator).exists():
                     operator = User.objects.get(username=details.operator)
-                    operatorSerializer = UserSerializer(operator)
-                    op = operatorSerializer.data
+                    op = {
+                        "username": str(operator.first_name + " " + operator.last_name)
+                    }
                 else:
                     op = {"username": "Awaiting Assignment"}
             if Welfare.objects.filter(order_number=id).exists():
@@ -283,8 +285,9 @@ def order_details(request, id):
                 clientSerializer = UserSerializer(client)
                 if User.objects.filter(username=details.operator).exists():
                     operator = User.objects.get(username=details.operator)
-                    operatorSerializer = UserSerializer(operator)
-                    op = operatorSerializer.data
+                    op = {
+                        "username": str(operator.first_name + " " + operator.last_name)
+                    }
                 else:
                     op = {"username": "Awaiting Assignment"}
             return JsonResponse(
