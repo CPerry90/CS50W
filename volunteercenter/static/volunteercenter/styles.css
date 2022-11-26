@@ -304,6 +304,10 @@ input {
   cursor: pointer;
 }
 
+.form-card {
+  margin-bottom: 3rem;
+}
+
 .info-pannel {
   margin-top: 10vh;
   background-color: white;

@@ -194,7 +194,24 @@ function OrderView(props) {
             <div className="row">
                 <div className="col-md-2"></div>
                 <div className="col-md-10">
-                    <p>{props.data.details.order}</p>
+                    {(() => {
+                        if (props.data.details.order) {
+                            return <p>{props.data.details.order}</p>;
+                        } else if (props.data.details.order_details) {
+                            return (
+                                <>
+                                    <p>{props.data.details.order_details}</p>
+                                    <br></br>
+                                    <p id="order-details">
+                                        <strong>Pharamacy: </strong>
+                                        {props.data.details.pharmacy}
+                                    </p>
+                                </>
+                            );
+                        } else if (props.data.details.notes) {
+                            return <p>{props.data.details.notes}</p>;
+                        }
+                    })()}
                 </div>
             </div>
             <hr></hr>

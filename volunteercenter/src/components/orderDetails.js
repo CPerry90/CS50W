@@ -24,7 +24,7 @@ export function OrderDetails(props, isEdit) {
         });
 }
 
-function OrderDetailDiv(props) {
+export function OrderDetailDiv(props) {
     if (props.pharmacy == "") {
         return (
             <div className="col-md-8" id="detail-container">

@@ -521,12 +521,17 @@ def delete_order(request):
 def pdf(request, order_number):
     buffer = io.BytesIO()
     p = canvas.Canvas(buffer)
+    assigned = "Awaiting Assignment"
+    phone = ""
     if Delivery.objects.filter(order_number=order_number).exists():
         details = Delivery.objects.get(order_number=order_number)
         created_at = details.date_created.strftime("%d %B, %Y")
         due_at = details.date_due.strftime("%d %B, %Y")
         client = User.objects.get(username=details.delivery_client)
-        operator = User.objects.get(username=details.operator)
+        if User.objects.filter(username=details.operator).exists():
+            operator = User.objects.get(username=details.operator)
+            assigned = f"{operator.first_name} {operator.last_name}"
+            phone = operator.phone_number
         body = details.order
         other = ""
     elif Prescription.objects.filter(order_number=order_number).exists():
@@ -534,6 +539,10 @@ def pdf(request, order_number):
         created_at = details.date_created.strftime("%d %B, %Y")
         due_at = details.date_due.strftime("%d %B, %Y")
         client = User.objects.get(username=details.prescription_client)
+        if User.objects.filter(username=details.operator).exists():
+            operator = User.objects.get(username=details.operator)
+            assigned = f"{operator.first_name} {operator.last_name}"
+            phone = operator.phone_number
         body = details.order_details
         other = str("Pharmacy: " + details.pharmacy)
     elif Welfare.objects.filter(order_number=order_number).exists():
@@ -541,6 +550,10 @@ def pdf(request, order_number):
         created_at = details.date_created.strftime("%d %B, %Y")
         due_at = details.date_due.strftime("%d %B, %Y")
         client = User.objects.get(username=details.welfare_client)
+        if User.objects.filter(username=details.operator).exists():
+            operator = User.objects.get(username=details.operator)
+            assigned = f"{operator.first_name} {operator.last_name}"
+            phone = operator.phone_number
         body = details.notes
         other = ""
     logo = ImageReader("./volunteercenter/static/logo.png")
@@ -564,15 +577,15 @@ def pdf(request, order_number):
     topLine = [(50, 650, 540, 650)]
     p.lines(topLine)
     p.drawString(50, 620, str("Order Details"))
-    p.drawString(50, 605, str(other))
+    p.drawString(50, 595, str(other))
     paragraph = Paragraph(f"{body}")
     paragraph.wrapOn(p, 800, 600)
     paragraph.drawOn(p, 50, 575)
     botLine = [(50, 100, 540, 100)]
     p.drawString(50, 80, f"Created: {created_at}")
     p.drawString(50, 65, f"Due on: {due_at}")
-    p.drawString(400, 80, f"Assigned to: {operator.first_name} {operator.last_name}")
-    p.drawString(400, 65, f"Phone: {operator.phone_number}")
+    p.drawString(400, 80, f"Assigned to: {assigned}")
+    p.drawString(400, 65, f"Phone: {phone}")
     p.drawString(400, 50, f"Status: {details.status.capitalize()}")
     p.lines(botLine)
     p.showPage()
