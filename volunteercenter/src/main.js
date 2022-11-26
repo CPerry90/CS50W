@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("loader").classList.add("fade-out");
-    setTimeout(fadeIn, 1000);
+    setTimeout(fadeIn, 750);
 });
 
 function fadeIn() {

@@ -7,25 +7,31 @@ $highlight: #deebff5e;
 .loader {
     margin-left: auto;
     margin-right: auto;
-    border: 16px solid #f3f3f3; /* Light grey */
-    border-top: 16px solid #3498db; /* Blue */
+    border: 10px solid #f3f3f3;
+    //border-top: 10px solid #1a2d40;
     border-radius: 50%;
-    width: 120px;
-    height: 120px;
-    animation: spin 2s linear infinite;
+    width: 150px;
+    height: 150px;
+    animation: spin 1s infinite;
+    box-shadow: inset 0 0rem 1rem rgb(0 0 0 / 50%);
 }
 
 @keyframes spin {
     0% {
         transform: rotate(0deg);
+        box-shadow: inset 0 0rem 1rem rgba(0, 0, 0, 0.5);
+    }
+    75% {
+        box-shadow: inset 0 0rem 5rem $secondary;
     }
     100% {
         transform: rotate(360deg);
+        box-shadow: inset 0 0rem 1rem $secondary;
     }
 }
 
 .loader-container {
-    padding-top: 30vh;
+    padding-top: 40vh;
     background-color: #deebff;
     height: 100vh;
     width: 100%;
