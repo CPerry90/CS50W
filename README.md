@@ -14,6 +14,10 @@ application.
 -   Operator Area (Operators fulfil the requests)
 -   Client Area (Clients can log in to access services)
 
+#### YouTube Demonstration
+
+[CS50W Project 5 capstone](https://www.youtube.com/watch?v=8ZAhNDiTP9E)
+
 ## Distinctiveness and Complexity
 
 This project is different from the other projects on the course as it is essentially a
@@ -23,8 +27,8 @@ to download a PDF of the request. And the complexity in how the app handles logi
 For example, there is one log in page, but depending on your account type (Call Handler, Client, Operator),
 it will take you to the appropriate area of the app.
 
-The app is built using Django, React and Sass. This makes for fluid transitions of the DOM and quick
-handling of data. On most parts of the different areas on the app you can edit details, edit requests,
+The app is built using Django, React and Sass. This makes for fluid transitions of the DOM, quick
+handling of data and consistent styling and animations. On most parts of the different areas on the app you can edit details, edit requests,
 add requests, delete requests and change the status of requests without reloading the entire page.
 
 There are 4 models in this application. For Users, Deliveries, Prescriptions and Welfare. They all utilise
@@ -35,7 +39,7 @@ There are 2 apps inside the Django project. The API app handles the views and ur
 The Volunteer Center app handles everything else, such as Models, Serializers, and Admin.
 
 For react, I have used webpacks and babel to compile the React code into minified JS files which
-are stored in the /static directory and referenced in the layout.html template.
+are stored in the /static directory and referenced in the layout.html template. I have also used the React-modal.
 
 ## What's Contained In Each file
 
@@ -57,6 +61,7 @@ are stored in the /static directory and referenced in the layout.html template.
             -   `clientOrders.js` - Fetches and loads the clients requests.
             -   `editForm.js` - A form for editing orders.
             -   `forms.js` - Forms for adding requests.
+            -   `modal.js` - Modal component for delete confirmation.
             -   `newOrder.js` - Handles new orders.
             -   `orderDetails.js` - Fetches and loads the request details.
             -   `roots.js` - Creates reusable roots for React.
@@ -93,6 +98,16 @@ are stored in the /static directory and referenced in the layout.html template.
 ## How to run
 
 All React and Sass are pre-compiled. Application can be run with `python manage.py runserver`
+
+There are several set logins available for different user types. The passwords are all set to `1234`
+
+Usernames:
+
+-   Call Handler `cmperry@live.co.uk` (superuser)
+-   Delivery Operator `dave@mail.com`
+-   Prescription Operator `tom@mail.com`
+-   Welfare Operator `sarah@mail.com`
+-   Client `lucy@mail.com`
 
 ## How the App operates
 
