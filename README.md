@@ -16,7 +16,7 @@ application.
 
 #### YouTube Demonstration
 
-[CS50W Project 5 capstone](https://www.youtube.com/watch?v=8ZAhNDiTP9E)
+[CS50W Project 5 capstone](https://youtu.be/3nDC_PjbKwM)
 
 ## Distinctiveness and Complexity
 
