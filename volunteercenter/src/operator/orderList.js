@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { cta } from "../main";
 import { Order } from "./listDisplay";
 
 function NoOrder(props) {
@@ -11,9 +10,6 @@ function NoOrder(props) {
 }
 
 export function OrderList(props) {
-    setTimeout(function () {
-        cta();
-    }, 200);
     if (props.isShow == "True") {
         const [recievedOpen, setRecievedOpen] = React.useState([]);
         const [processingOpen, setProcessingOpen] = React.useState([]);

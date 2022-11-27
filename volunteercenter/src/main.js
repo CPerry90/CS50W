@@ -18,7 +18,11 @@ window.onscroll = () => {
 };
 
 export function cta() {
-    if (document.body.offsetHeight - window.innerHeight > 200) {
+    console.log("CTA");
+    if (
+        document.body.offsetHeight - window.innerHeight > 300 &&
+        window.scrollY < 50
+    ) {
         document.getElementById("cta").classList.replace("d-none", "d-block");
         document.getElementById("cta").classList.replace("fade-out", "fade-in");
     } else {

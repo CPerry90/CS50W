@@ -3,8 +3,8 @@ import React from "react";
 import { Orders } from "./clientOrders";
 import { EditDeliveryForm } from "./editForm";
 import { DetailsClose } from "./buttons";
-import { cta } from "../main";
 import { DeleteModal } from "../components/modal";
+import { cta } from "../main";
 
 export function OrderDetails(props, isEdit) {
     cta();
@@ -83,6 +83,8 @@ function Empty() {
 }
 export function DeleteOrder(props) {
     function deleteOrder() {
+        setTimeout(cta, 750);
+        scrollTo(0, 0);
         detailsRoot.render(<Empty />);
         fetch(`api/delete_order`, {
             method: "POST",

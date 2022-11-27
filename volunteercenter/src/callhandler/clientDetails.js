@@ -70,6 +70,7 @@ function EditUserButton(props) {
 
 export function NewOrderButton(props) {
     function clickHandler() {
+        scrollTo({ top: 210, behavior: "smooth" });
         let root = createRoot(document.getElementById("selectDiv"));
         root.render(<NewOrderDiv props={props} root={root} />);
     }

@@ -3,7 +3,6 @@ import React from "react";
 import { OperatorDetails } from "./operatorDetails";
 import { OrderList } from "./orderList";
 import { UnasignedDisplayButton, OrderDisplayButton } from "./orderList";
-import { cta } from "../main";
 let navRoot1 = createRoot(document.getElementById("nav-1"));
 let navRoot2 = createRoot(document.getElementById("nav-2"));
 navRoot1.render(<UnasignedDisplayButton />);
@@ -29,7 +28,4 @@ document.addEventListener("DOMContentLoaded", function () {
     assignedRoot.render(
         <OrderList isEdit="False" isAssigned="True" isShow="True" />
     );
-    setTimeout(function () {
-        cta();
-    }, 200);
 });

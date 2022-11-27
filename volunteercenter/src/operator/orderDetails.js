@@ -2,11 +2,9 @@ import { createRoot } from "react-dom/client";
 import React from "react";
 import { orderRoot, assignedRoot } from "./operator";
 import { OrderList } from "./orderList";
-import { cta } from "../main";
 
 let root = createRoot(document.getElementById("order-details"));
 export function OrderDetails(props, isEdit, isAssigned) {
-    cta();
     document.getElementById("info-pannel").classList.add("hide-m");
     document.getElementById("operator-details").classList.add("hide-m");
     orderRoot.render(

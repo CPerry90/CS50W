@@ -1,6 +1,7 @@
 import React from "react";
 import { detailsRoot, orderListRoot } from "./roots";
 import { Orders } from "./clientOrders";
+import { cta } from "../main";
 
 export function Exit() {
     function clickHandler() {
@@ -20,6 +21,8 @@ function Empty() {
 }
 export function DetailsClose(props) {
     function close() {
+        scrollTo({ top: 0, behavior: "smooth" });
+        setTimeout(cta, 750);
         detailsRoot.render(<Empty />);
         document.getElementById("info-pannel").classList.remove("hide-m");
         document.getElementById("client-details").classList.remove("hide-m");

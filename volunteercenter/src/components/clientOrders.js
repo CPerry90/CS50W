@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { cta } from "../main";
 import { OrderDetails } from "./orderDetails";
 
 function OpDetails(props) {
@@ -80,7 +79,6 @@ function OpDetails(props) {
 }
 
 export function Orders(props) {
-    cta();
     if (props.isShow == "True") {
         document.getElementById("client-orders").style.display = "block";
         const [deliveries, setDeliveries] = React.useState([]);

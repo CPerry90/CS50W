@@ -12,7 +12,6 @@ import {
 } from "./callhandler";
 import { NewClientDiv } from "./newClient";
 import { NewOrderButton } from "./clientDetails";
-import { cta } from "../main";
 
 export function CallHandlerDetails(props) {
     const [user, setUser] = React.useState([]);
@@ -56,7 +55,6 @@ export function CallHandlerDetails(props) {
 }
 
 export function ClientSearch() {
-    cta();
     const [result, setResult] = React.useState([]);
     useEffect(() => {
         fetch("api/client_search", {
@@ -125,6 +123,7 @@ export function ClientSearch() {
 
 function AddClientButton(props) {
     const clickHandler = (event) => {
+        scrollTo({ top: 210, behavior: "smooth" });
         root.render(<NewClientDiv />);
     };
     return (
