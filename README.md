@@ -8,10 +8,6 @@ I have adapted the project for the CS50W course. There are 3 main areas of the w
 -   Operator Area (Operators fulfil the requests)
 -   Client Area (Clients can log in to access services)
 
-#### YouTube Demonstration
-
-[CS50W Project 5 capstone](https://youtu.be/ILnRwTXe6-s)
-
 ## Distinctiveness and Complexity
 
 This project is different from the other projects on the course as it is essentially a call center operation app. There are features involved that are not present in the other projects. Such as an autocomplete search for the call handler to find a client. The ability to download a PDF of the request. And the complexity in how the app handles logins and views. For example, there is one log in page, but depending on your account type (Call Handler, Client, Operator), it will take you to the appropriate area of the app.
