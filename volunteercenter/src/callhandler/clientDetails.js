@@ -16,11 +16,7 @@ export function ClientDetails(props) {
         })
             .then((response) => response.json())
             .then((data) => {
-                if (data.msg) {
-                    console.log(data.msg);
-                } else {
-                    setClient(data.user);
-                }
+                setClient(data.user);
             });
     }, []);
     return (

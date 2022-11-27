@@ -24,14 +24,10 @@ export function CallHandlerDetails(props) {
         })
             .then((response) => response.json())
             .then((data) => {
-                if (data.msg) {
-                    console.log(data.msg);
-                } else {
-                    setUser(data.user);
-                    document
-                        .getElementById("user-details")
-                        .classList.replace("d-none", "fade-in");
-                }
+                setUser(data.user);
+                document
+                    .getElementById("user-details")
+                    .classList.replace("d-none", "fade-in");
             });
     }, []);
     return (

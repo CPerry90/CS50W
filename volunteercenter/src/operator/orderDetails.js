@@ -2,9 +2,11 @@ import { createRoot } from "react-dom/client";
 import React from "react";
 import { orderRoot, assignedRoot } from "./operator";
 import { OrderList } from "./orderList";
+import { cta } from "../main";
 
 let root = createRoot(document.getElementById("order-details"));
 export function OrderDetails(props, isEdit, isAssigned) {
+    cta();
     document.getElementById("info-pannel").classList.add("hide-m");
     document.getElementById("operator-details").classList.add("hide-m");
     orderRoot.render(
@@ -113,6 +115,9 @@ function Complete(props) {
 
 function DetailsClose(props) {
     function close() {
+        scrollTo({ top: 0, behavior: "smooth" });
+        setTimeout(cta, 750);
+
         orderRoot.render(
             <OrderList isEdit="False" isAssigned="False" isShow="True" />
         );

@@ -587,9 +587,9 @@ def pdf(request, order_number):
     botLine = [(50, 100, 540, 100)]
     p.drawString(50, 80, f"Created: {created_at}")
     p.drawString(50, 65, f"Due on: {due_at}")
-    p.drawString(400, 80, f"Assigned to: {assigned}")
-    p.drawString(400, 65, f"Phone: {phone}")
-    p.drawString(400, 50, f"Status: {details.status.capitalize()}")
+    p.drawString(50, 50, f"Assigned to: {assigned}")
+    p.drawString(50, 35, f"Phone: {phone}")
+    p.drawString(400, 80, f"Status: {details.status.capitalize()}")
     p.lines(botLine)
     p.showPage()
     p.save()

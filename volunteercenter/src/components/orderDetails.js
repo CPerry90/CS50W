@@ -83,8 +83,8 @@ function Empty() {
 }
 export function DeleteOrder(props) {
     function deleteOrder() {
+        scrollTo({ top: 0, behavior: "smooth" });
         setTimeout(cta, 750);
-        scrollTo(0, 0);
         detailsRoot.render(<Empty />);
         fetch(`api/delete_order`, {
             method: "POST",
@@ -117,7 +117,6 @@ export function DeleteOrder(props) {
 }
 
 function OrderView(props) {
-    console.log(props);
     return (
         <div className="order-details">
             <div className="row">

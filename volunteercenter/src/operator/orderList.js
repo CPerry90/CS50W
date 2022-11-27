@@ -61,6 +61,7 @@ export function OrderList(props) {
 }
 export function UnasignedDisplayButton(props) {
     function ChangeView() {
+        scrollTo({ top: 425, behavior: "smooth" });
         document.getElementById("operator-orders").style.display = "none";
         document.getElementById("available-orders").style.display = "block";
     }
@@ -74,6 +75,7 @@ export function UnasignedDisplayButton(props) {
 
 export function OrderDisplayButton(props) {
     function ChangeView() {
+        scrollTo({ top: 425, behavior: "smooth" });
         document.getElementById("operator-orders").style.display = "block";
         document.getElementById("available-orders").style.display = "none";
     }

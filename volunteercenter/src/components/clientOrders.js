@@ -92,18 +92,14 @@ export function Orders(props) {
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    if (data.msg) {
-                        console.log(data.msg);
-                    } else {
-                        if (data.data.delivery) {
-                            setDeliveries(data.data.delivery);
-                        }
-                        if (data.data.prescription) {
-                            setPresscriptions(data.data.prescription);
-                        }
-                        if (data.data.welfare) {
-                            setWelfares(data.data.welfare);
-                        }
+                    if (data.data.delivery) {
+                        setDeliveries(data.data.delivery);
+                    }
+                    if (data.data.prescription) {
+                        setPresscriptions(data.data.prescription);
+                    }
+                    if (data.data.welfare) {
+                        setWelfares(data.data.welfare);
                     }
                 });
         }, []);
