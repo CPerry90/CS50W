@@ -75,6 +75,7 @@ $highlight: #deebff5e;
 }
 
 .hover {
+    cursor: pointer;
     color: $main;
     transition: all 200ms linear;
     &:hover {

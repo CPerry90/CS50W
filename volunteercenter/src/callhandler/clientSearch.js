@@ -9,10 +9,10 @@ import {
     root,
     navRoot1,
     navRoot2,
-    userRoot,
 } from "./callhandler";
 import { NewClientDiv } from "./newClient";
 import { NewOrderButton } from "./clientDetails";
+import { cta } from "../main";
 
 export function CallHandlerDetails(props) {
     const [user, setUser] = React.useState([]);
@@ -56,6 +56,7 @@ export function CallHandlerDetails(props) {
 }
 
 export function ClientSearch() {
+    cta();
     const [result, setResult] = React.useState([]);
     useEffect(() => {
         fetch("api/client_search", {
@@ -80,7 +81,12 @@ export function ClientSearch() {
     const formatResult = (item) => {
         return (
             <>
-                <span style={{ display: "block", textAlign: "left" }}>
+                <span
+                    style={{
+                        display: "block",
+                        textAlign: "left",
+                        cursor: "pointer",
+                    }}>
                     {item.first_name +
                         ", " +
                         item.last_name +

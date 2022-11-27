@@ -67,6 +67,7 @@
 }
 
 .hover {
+  cursor: pointer;
   color: #1a2d40;
   transition: all 200ms linear;
 }
