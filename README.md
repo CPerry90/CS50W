@@ -164,3 +164,5 @@ When deleting a request, the request is marked as `archived`. This means the req
 As an operator, opening a new request automatically marks it as `processing`.
 
 Registering through the site will create a user as `client`. To create a `handler` or `operator` user, the Super User would need to add the user through the admin area, or change their status if they have an account.
+
+Orders can only be edited if they have not been accepted of completed.
