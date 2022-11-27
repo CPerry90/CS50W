@@ -25,17 +25,42 @@ export function OrderDetails(props, isEdit) {
 }
 
 export function OrderDetailDiv(props) {
+    console.log(props);
     if (props.pharmacy == "") {
         return (
             <div className="col-md-8" id="detail-container">
-                <EditOrder client={props.client} details={props.details} />
+                {(() => {
+                    if (
+                        props.details.status == "recieved" ||
+                        props.details.status == "processing"
+                    ) {
+                        return (
+                            <EditOrder
+                                client={props.client}
+                                details={props.details}
+                            />
+                        );
+                    }
+                })()}
                 <p id="order-details">{props.orderDetails}</p>
             </div>
         );
     } else {
         return (
             <div className="col-md-8" id="detail-container">
-                <EditOrder client={props.client} details={props.details} />
+                {(() => {
+                    if (
+                        props.details.status == "recieved" ||
+                        props.details.status == "processing"
+                    ) {
+                        return (
+                            <EditOrder
+                                client={props.client}
+                                details={props.details}
+                            />
+                        );
+                    }
+                })()}
                 <p id="order-details">{props.orderDetails}</p>
                 <br></br>
                 <p id="order-details">
