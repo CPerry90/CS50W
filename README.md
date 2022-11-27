@@ -82,7 +82,9 @@ For react, I have used webpacks and babel to compile the React code into JS file
 
 ## How to run
 
-All React and Sass are pre-compiled. You can run the application `python manage.py runserver`
+All React and Sass are pre-compiled. You can run the application with:
+
+`python manage.py runserver`
 
 To use the source code you will need to have node.js, npm and Sass installed.
 
