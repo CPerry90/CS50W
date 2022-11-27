@@ -16,7 +16,7 @@ I have adapted the project for the CS50W course. There are 3 main areas of the w
 
 This project is different from the other projects on the course as it is essentially a call center operation app. There are features involved that are not present in the other projects. Such as an autocomplete search for the call handler to find a client. The ability to download a PDF of the request. And the complexity in how the app handles logins and views. For example, there is one log in page, but depending on your account type (Call Handler, Client, Operator), it will take you to the appropriate area of the app.
 
-The app is built using Django, React and Sass. This makes for fluid ransitions of the DOM, quick handling of data and consistent styling and animations. On most parts of the different areas on the app you can edit details, edit requests, add requests, delete requests and change the status of requests without reloading the entire page.
+The app is built using Django, React and Sass. This makes for fluid transitions of the DOM, quick handling of data and consistent styling and animations. On most parts of the different areas on the app you can edit details, edit requests, add requests, delete requests and change the status of requests without reloading the entire page.
 
 There are 4 models in this application. For Users, Deliveries, Prescriptions and Welfare. They all utilise ForeignKey fields. A user can have several of each type of request, and each request model has to access the client, as well as the operator assigned to the model.
 
@@ -71,22 +71,63 @@ For react, I have used webpacks and babel to compile the React code into JS file
         -   `operator.html` HTML for Operator Area.
         -   `register.html` - Register HTML.
     -   `admin.py` - Admin definitions.
+    -   `babel.config.json` - Babel Preset.
     -   `models.py` - Contains the models for the application.
+    -   `package.json` - npm dependencies.
     -   `serializer.py` - Serializer definitions for models.
     -   `urls.py` - Contains the URLs to handle register, logout, and log in directed to correct area of the app.
     -   `views.py` - Handles registration and returns correct login views.
     -   `webpack.config.js` - Handles the compiling of React into minified js.
-    -   `babel.config.json` - Babel Preset.
+    -   `requirements.txt` - Install npm dependencies.
 
 ## How to run
 
-All React and Sass are pre-compiled. Application can be run with `python manage.py runserver`
+All React and Sass are pre-compiled. You can run the application `python manage.py runserver`
+
+To use the source code you will need to have node.js, npm and Sass installed.
+
+This project uses:
+
+-   `djangorestframework` - API.
+-   `reportlab` - Generates PDFs.
+-   `Sass` - CSS Compiler.
+-   `React`
+-   `babel`
+-   `webpack`
+-   `react-modal` - Modal package for React.
+-   `react-search-autocomplete` - Search Autocomplete package for React.
+
+### Install
+
+`pip install -r requirements.txt`
+
+[Download node.js](https://nodejs.org/en/)
+
+In the CPerry90 directory run `npm install -g sass`
+
+You can then set Sass to watch changes in `volunteercenter\src\styles` by using the terminal to run:
+
+`sass --watch volunteercenter/src/styles/styles.scss:volunteercenter/static/volunteercenter/styles.css`
+
+To use webpack and babel with React you will need to install the dependencies from package.json. This will install React, WebPack and Babel.
+
+`cd volunteercenter` - Enter the volunteercenter directory.
+
+`npm install` - Install dependencies
+
+To run the webpack, inside the `/volunteercenter/` directory run:
+
+`npm run dev`
+
+With both Sass and WebPack/Babel watching for changes you can now edit the source code to make changes.
+
+### Login
 
 There are several set logins available for different user types. The passwords are all set to `1234`
 
-Usernames:
+#### Usernames:
 
--   Call Handler `cmperry@live.co.uk` (superuser)
+-   Call Handler `kit@mail.com` (superuser)
 -   Delivery Operator `dave@mail.com`
 -   Prescription Operator `tom@mail.com`
 -   Welfare Operator `sarah@mail.com`
