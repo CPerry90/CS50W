@@ -18,7 +18,6 @@ window.onscroll = () => {
 };
 
 export function cta() {
-    console.log("CTA");
     if (
         document.body.offsetHeight - window.innerHeight > 300 &&
         window.scrollY < 50
