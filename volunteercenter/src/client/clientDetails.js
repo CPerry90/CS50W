@@ -52,8 +52,6 @@ function EditUserButton(props) {
 export function NewOrderButton(props) {
     function clickHandler() {
         let root = createRoot(document.getElementById("selectDiv"));
-        document.getElementById("client-orders").style.display = "none";
-        document.getElementById("order-details").style.display = "block";
         root.render(<NewOrderDiv props={props} root={root} />);
     }
     return (
