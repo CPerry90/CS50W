@@ -64,7 +64,6 @@ export class EditDeliveryForm extends React.Component {
         })
             .then((response) => response.json())
             .then((result) => {
-                document.getElementById("order-details").style.display = "none";
                 OrderDetails(this.state.order, "False");
             });
     }
